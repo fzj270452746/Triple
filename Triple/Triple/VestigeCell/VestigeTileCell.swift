@@ -7,83 +7,82 @@
 
 import UIKit
 
-class VestigeTileCell: UITableViewCell {
+class EnigmaticTessellationCapsule: UITableViewCell {
     
-    let vestigeImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 10
-        imageView.clipsToBounds = true
-        imageView.layer.shadowColor = UIColor.black.cgColor
-        imageView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        imageView.layer.shadowOpacity = 0.5
-        imageView.layer.shadowRadius = 3
-        return imageView
+    let iconographicPortrait: UIImageView = {
+        let portraitView = UIImageView()
+        portraitView.contentMode = .scaleAspectFit
+        portraitView.translatesAutoresizingMaskIntoConstraints = false
+        portraitView.layer.cornerRadius = 10
+        portraitView.clipsToBounds = true
+        portraitView.layer.shadowColor = UIColor.black.cgColor
+        portraitView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        portraitView.layer.shadowOpacity = 0.5
+        portraitView.layer.shadowRadius = 3
+        return portraitView
     }()
     
-    let magnitudeLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 24)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        label.layer.cornerRadius = 15
-        label.clipsToBounds = true
-        return label
+    let potencyIndicatorGlyph: UILabel = {
+        let glyphLabel = UILabel()
+        glyphLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        glyphLabel.textColor = .white
+        glyphLabel.textAlignment = .center
+        glyphLabel.translatesAutoresizingMaskIntoConstraints = false
+        glyphLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        glyphLabel.layer.cornerRadius = 15
+        glyphLabel.clipsToBounds = true
+        return glyphLabel
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        establishCellInterface()
+        orchestrateCapsuleArchitecture()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func establishCellInterface() {
+    func orchestrateCapsuleArchitecture() {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         selectionStyle = .none
         
-        contentView.addSubview(vestigeImageView)
-        contentView.addSubview(magnitudeLabel)
+        contentView.addSubview(iconographicPortrait)
+        contentView.addSubview(potencyIndicatorGlyph)
         
-        let tileSize = AdaptiveLayoutHelper.calculateTileSize()
-        let labelSize: CGFloat = UIDevice.isIPadDevice ? 35 : 30
+        let tessellationMeasurement = ResponsiveGeometryCalibrator.computeTessellationDimension()
+        let glyphMeasurement: CGFloat = UIDevice.isPadlockApparatus ? 35 : 30
         
         NSLayoutConstraint.activate([
-            vestigeImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            vestigeImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            vestigeImageView.widthAnchor.constraint(equalToConstant: tileSize * 0.85),
-            vestigeImageView.heightAnchor.constraint(equalToConstant: tileSize * 0.85),
+            iconographicPortrait.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            iconographicPortrait.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            iconographicPortrait.widthAnchor.constraint(equalToConstant: tessellationMeasurement * 0.85),
+            iconographicPortrait.heightAnchor.constraint(equalToConstant: tessellationMeasurement * 0.85),
             
-            magnitudeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            magnitudeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            magnitudeLabel.widthAnchor.constraint(equalToConstant: labelSize),
-            magnitudeLabel.heightAnchor.constraint(equalToConstant: labelSize)
+            potencyIndicatorGlyph.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            potencyIndicatorGlyph.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            potencyIndicatorGlyph.widthAnchor.constraint(equalToConstant: glyphMeasurement),
+            potencyIndicatorGlyph.heightAnchor.constraint(equalToConstant: glyphMeasurement)
         ])
         
-        magnitudeLabel.font = UIFont.boldSystemFont(ofSize: AdaptiveLayoutHelper.calculateFontSize(base: 24))
+        potencyIndicatorGlyph.font = UIFont.boldSystemFont(ofSize: ResponsiveGeometryCalibrator.computeTypographicMagnitude(foundationSize: 24))
     }
     
-    func configureWithVestige(_ vestige: VestigeTileModel, showMagnitude: Bool) {
-        vestigeImageView.image = vestige.vestigeImage
+    func configureCapsuleWithTessellation(_ tessellation: EnigmaticTessellationEmbodiment, exhibitPotency: Bool) {
+        iconographicPortrait.image = tessellation.iconographicRepresentation
         
-        if vestige.isSpecialObliterator {
-            magnitudeLabel.isHidden = true
+        if tessellation.possessesEradicationCapability {
+            potencyIndicatorGlyph.isHidden = true
         } else {
-            magnitudeLabel.text = "\(vestige.vestigeMagnitude)"
-            magnitudeLabel.isHidden = !showMagnitude
+            potencyIndicatorGlyph.text = "\(tessellation.numericalPotency)"
+            potencyIndicatorGlyph.isHidden = !exhibitPotency
         }
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        vestigeImageView.image = nil
-        magnitudeLabel.text = ""
+        iconographicPortrait.image = nil
+        potencyIndicatorGlyph.text = ""
     }
 }
-

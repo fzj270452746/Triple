@@ -7,112 +7,101 @@
 
 import UIKit
 
-class MahjongArcadeViewController: UIViewController {
+class MysticalTessellationOrchestrationController: UIViewController {
     
     // MARK: - Properties
-    var vestigeRepository = VestigeRepository.sharedDepot
-    var currentVelocity: ArchiveRecordModel.GameVelocity = .sluggish
-    var currentTally: Int = 0
-    var gameCommencedAt: Date?
-    var isGameProceeding = false
+    var tessellationAnthology = TessellationAnthologyEmporium.singularInstance
+    var activeExecutionCadence: ChronologicalAchievementDocumentation.ExecutionCadence = .decelerated
+    var accumulatedScoringTally: Int = 0
+    var ceremonyInaugurationMoment: Date?
+    var isCeremonyProgressing = false
     
-    var vestigeColumns: [[VestigeTileModel]] = [[], [], []]
-    var columnViews: [UITableView] = []
-    var columnBackgroundViews: [UIView] = []
-    var vestigePropulsionTimers: [Timer?] = [nil, nil, nil]
-    var shouldDisplayMagnitudes: Bool = false
+    var verticalTessellationCascades: [[EnigmaticTessellationEmbodiment]] = [[], [], []]
+    var cascadeVisualizationTables: [UITableView] = []
+    var cascadeBackgroundContainments: [UIView] = []
+    var autonomousPropulsionChronometers: [Timer?] = [nil, nil, nil]
+    var shouldExhibitNumericalPotencies: Bool = false
     
-    let columnHues: [UIColor] = [
+    let cascadeChromatics: [UIColor] = [
         UIColor(red: 0.2, green: 0.4, blue: 0.8, alpha: 0.3),
         UIColor(red: 0.8, green: 0.3, blue: 0.4, alpha: 0.3),
         UIColor(red: 0.3, green: 0.7, blue: 0.5, alpha: 0.3)
     ]
     
     // MARK: - UI Components
-    let backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "tripleImage")
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+    let etherealBackdropImagery: UIImageView = {
+        let imageryView = UIImageView()
+        imageryView.image = UIImage(named: "tripleImage")
+        imageryView.contentMode = .scaleAspectFill
+        imageryView.translatesAutoresizingMaskIntoConstraints = false
+        return imageryView
     }()
     
-    let dimmerOverlay: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    let obscuringTintedVeil: UIView = {
+        let veilView = UIView()
+        veilView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        veilView.translatesAutoresizingMaskIntoConstraints = false
+        return veilView
     }()
     
-    let tallyLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Score: 0"
-        label.font = UIFont.boldSystemFont(ofSize: 28)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.shadowColor = UIColor.black.cgColor
-        label.layer.shadowOffset = CGSize(width: 0, height: 2)
-        label.layer.shadowOpacity = 0.8
-        label.layer.shadowRadius = 4
-        return label
+    let scoringTallyInscription: UILabel = {
+        let inscriptionLabel = UILabel()
+        inscriptionLabel.text = "Score: 0"
+        inscriptionLabel.font = UIFont.boldSystemFont(ofSize: 28)
+        inscriptionLabel.textColor = .white
+        inscriptionLabel.textAlignment = .center
+        inscriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        inscriptionLabel.layer.shadowColor = UIColor.black.cgColor
+        inscriptionLabel.layer.shadowOffset = CGSize(width: 0, height: 2)
+        inscriptionLabel.layer.shadowOpacity = 0.8
+        inscriptionLabel.layer.shadowRadius = 4
+        return inscriptionLabel
     }()
     
-    let obliterateOneButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "deleteOne"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 3)
-        button.layer.shadowOpacity = 0.6
-        button.layer.shadowRadius = 4
-        return button
+    let potencyVisibilityToggleActuator: UIButton = {
+        let actuatorButton = UIButton(type: .system)
+        actuatorButton.setTitle("👁 Show Numbers", for: .normal)
+        actuatorButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        actuatorButton.setTitleColor(.white, for: .normal)
+        actuatorButton.backgroundColor = UIColor(red: 0.6, green: 0.4, blue: 0.8, alpha: 0.85)
+        actuatorButton.layer.cornerRadius = 22
+        actuatorButton.translatesAutoresizingMaskIntoConstraints = false
+        actuatorButton.layer.shadowColor = UIColor.black.cgColor
+        actuatorButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        actuatorButton.layer.shadowOpacity = 0.6
+        actuatorButton.layer.shadowRadius = 4
+        return actuatorButton
     }()
     
-    let toggleMagnitudeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("👁 Show Numbers", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(red: 0.6, green: 0.4, blue: 0.8, alpha: 0.85)
-        button.layer.cornerRadius = 22
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 3)
-        button.layer.shadowOpacity = 0.6
-        button.layer.shadowRadius = 4
-        return button
+    let cascadesAggregationStack: UIStackView = {
+        let stackAggregation = UIStackView()
+        stackAggregation.axis = .horizontal
+        stackAggregation.distribution = .fillEqually
+        stackAggregation.spacing = 12
+        stackAggregation.translatesAutoresizingMaskIntoConstraints = false
+        return stackAggregation
     }()
     
-    let columnsStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.distribution = .fillEqually
-        stack.spacing = 12
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        return stack
-    }()
-    
-    let retreatButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("← Back", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(red: 0.3, green: 0.4, blue: 0.6, alpha: 0.8)
-        button.layer.cornerRadius = 20
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 2)
-        button.layer.shadowOpacity = 0.6
-        button.layer.shadowRadius = 3
-        return button
+    let regressionNavigationTrigger: UIButton = {
+        let triggerButton = UIButton(type: .system)
+        triggerButton.setTitle("← Back", for: .normal)
+        triggerButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        triggerButton.setTitleColor(.white, for: .normal)
+        triggerButton.backgroundColor = UIColor(red: 0.3, green: 0.4, blue: 0.6, alpha: 0.8)
+        triggerButton.layer.cornerRadius = 20
+        triggerButton.translatesAutoresizingMaskIntoConstraints = false
+        triggerButton.layer.shadowColor = UIColor.black.cgColor
+        triggerButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        triggerButton.layer.shadowOpacity = 0.6
+        triggerButton.layer.shadowRadius = 3
+        return triggerButton
     }()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        establishInterface()
-        presentVelocitySelectionPrompt()
+        orchestrateVisualizationHierarchy()
+        presentCadenceSelectionInterface()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,4 +114,3 @@ class MahjongArcadeViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
-

@@ -7,316 +7,324 @@
 
 import UIKit
 
-extension MahjongArcadeViewController {
+extension MysticalTessellationOrchestrationController {
     
-    // MARK: - Game Flow
-    func commenceGame() {
-        isGameProceeding = true
-        currentTally = 0
-        gameCommencedAt = Date()
-        refreshTallyDisplay()
+    // MARK: - Game Flow Orchestration
+    func inaugurateCeremony() {
+        isCeremonyProgressing = true
+        accumulatedScoringTally = 0
+        ceremonyInaugurationMoment = Date()
+        rejuvenateScoringInscription()
         
-        for index in 0..<3 {
-            vestigeColumns[index] = []
-            appendInitialVestigesToColumn(index)
+        for cascadeIndex in 0..<3 {
+            verticalTessellationCascades[cascadeIndex] = []
+            infusePreliminaryTessellationsIntoCascade(cascadeIndex)
         }
         
-        initiateVestigePropulsion()
+        activateAutonomousPropulsion()
     }
     
-    func appendInitialVestigesToColumn(_ columnIndex: Int) {
+    func infusePreliminaryTessellationsIntoCascade(_ cascadeIndex: Int) {
         for _ in 0..<2 {
-            let vestige = vestigeRepository.fetchArbitraryVestige()
-            vestigeColumns[columnIndex].insert(vestige, at: 0)
+            let tessellation = tessellationAnthology.procureArbitraryTessellation()
+            verticalTessellationCascades[cascadeIndex].insert(tessellation, at: 0)
         }
-        columnViews[columnIndex].reloadData()
-        animateNewVestigesAppearance(in: columnIndex)
+        cascadeVisualizationTables[cascadeIndex].reloadData()
+        choreographFreshTessellationEmergence(within: cascadeIndex)
     }
     
-    func initiateVestigePropulsion() {
-        let propulsionInterval: TimeInterval = currentVelocity == .brisk ? 2.0 : 3.5
+    func activateAutonomousPropulsion() {
+        let propulsionTemporalInterval: TimeInterval = activeExecutionCadence == .accelerated ? 2.0 : 3.5
         
-        for index in 0..<3 {
-            vestigePropulsionTimers[index]?.invalidate()
-            vestigePropulsionTimers[index] = Timer.scheduledTimer(withTimeInterval: propulsionInterval, repeats: true) { [weak self] _ in
-                self?.propelNewVestigeIntoColumn(index)
+        for cascadeIndex in 0..<3 {
+            autonomousPropulsionChronometers[cascadeIndex]?.invalidate()
+            autonomousPropulsionChronometers[cascadeIndex] = Timer.scheduledTimer(withTimeInterval: propulsionTemporalInterval, repeats: true) { [weak self] _ in
+                self?.propelSupplementaryTessellationIntoCascade(cascadeIndex)
             }
         }
     }
     
-    func propelNewVestigeIntoColumn(_ columnIndex: Int) {
-        guard isGameProceeding else { return }
+    func propelSupplementaryTessellationIntoCascade(_ cascadeIndex: Int) {
+        guard isCeremonyProgressing else { return }
         
-        let vestige = vestigeRepository.fetchArbitraryVestige()
-        vestigeColumns[columnIndex].insert(vestige, at: 0)
+        let tessellation = tessellationAnthology.procureArbitraryTessellation()
+        verticalTessellationCascades[cascadeIndex].insert(tessellation, at: 0)
         
-        let indexPath = IndexPath(row: 0, section: 0)
-        columnViews[columnIndex].insertRows(at: [indexPath], with: .top)
+        let indexCoordinate = IndexPath(row: 0, section: 0)
+        cascadeVisualizationTables[cascadeIndex].insertRows(at: [indexCoordinate], with: .top)
         
-        animateVestigeDescent(in: columnIndex)
+        choreographTessellationDescension(within: cascadeIndex)
         
-        scrutinizeColumnCapacity(columnIndex)
+        evaluateCascadeCapacityThreshold(cascadeIndex)
     }
     
-    func animateVestigeDescent(in columnIndex: Int) {
-        let tableView = columnViews[columnIndex]
+    func choreographTessellationDescension(within cascadeIndex: Int) {
+        let visualizationTable = cascadeVisualizationTables[cascadeIndex]
         
-        if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) {
-            cell.alpha = 0
-            cell.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        if let capsule = visualizationTable.cellForRow(at: IndexPath(row: 0, section: 0)) {
+            capsule.alpha = 0
+            capsule.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
             
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseOut) {
-                cell.alpha = 1
-                cell.transform = .identity
+                capsule.alpha = 1
+                capsule.transform = .identity
             }
         }
     }
     
-    func animateNewVestigesAppearance(in columnIndex: Int) {
-        let tableView = columnViews[columnIndex]
-        tableView.reloadData()
+    func choreographFreshTessellationEmergence(within cascadeIndex: Int) {
+        let visualizationTable = cascadeVisualizationTables[cascadeIndex]
+        visualizationTable.reloadData()
         
-        for row in 0..<vestigeColumns[columnIndex].count {
-            if let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) {
-                cell.alpha = 0
-                cell.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
+        for rowPosition in 0..<verticalTessellationCascades[cascadeIndex].count {
+            if let capsule = visualizationTable.cellForRow(at: IndexPath(row: rowPosition, section: 0)) {
+                capsule.alpha = 0
+                capsule.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
                 
-                UIView.animate(withDuration: 0.6, delay: Double(row) * 0.1, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.8, options: .curveEaseOut) {
-                    cell.alpha = 1
-                    cell.transform = .identity
+                UIView.animate(withDuration: 0.6, delay: Double(rowPosition) * 0.1, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.8, options: .curveEaseOut) {
+                    capsule.alpha = 1
+                    capsule.transform = .identity
                 }
             }
         }
     }
     
-    func scrutinizeColumnCapacity(_ columnIndex: Int) {
-        let tableView = columnViews[columnIndex]
-        let containerView = columnBackgroundViews[columnIndex]
+    func evaluateCascadeCapacityThreshold(_ cascadeIndex: Int) {
+        let visualizationTable = cascadeVisualizationTables[cascadeIndex]
+        let backgroundEncapsulation = cascadeBackgroundContainments[cascadeIndex]
         
-        guard let lastVisibleCell = tableView.visibleCells.last,
-              let lastIndexPath = tableView.indexPath(for: lastVisibleCell) else {
+        guard let terminalVisibleCapsule = visualizationTable.visibleCells.last,
+              let terminalIndexCoordinate = visualizationTable.indexPath(for: terminalVisibleCapsule) else {
             return
         }
         
-        let cellFrameInTableView = tableView.rectForRow(at: lastIndexPath)
-        let cellFrameInContainer = tableView.convert(cellFrameInTableView, to: containerView)
-        let containerBottom = containerView.bounds.height
+        let capsuleFrameWithinTable = visualizationTable.rectForRow(at: terminalIndexCoordinate)
+        let capsuleFrameWithinEncapsulation = visualizationTable.convert(capsuleFrameWithinTable, to: backgroundEncapsulation)
+        let encapsulationVerticalExtent = backgroundEncapsulation.bounds.height
         
-        if cellFrameInContainer.maxY >= containerBottom - 10 {
-            terminateGame()
+        if capsuleFrameWithinEncapsulation.maxY >= encapsulationVerticalExtent - 10 {
+            terminateCeremony()
         }
     }
     
-    func obliterateTileAtIndexPath(_ indexPath: IndexPath, in columnIndex: Int) {
-        guard isGameProceeding else { return }
+    func eradicateTessellationAtCoordinate(_ indexCoordinate: IndexPath, within cascadeIndex: Int) {
+        guard isCeremonyProgressing else { return }
         
-        let vestige = vestigeColumns[columnIndex][indexPath.row]
+        let tessellation = verticalTessellationCascades[cascadeIndex][indexCoordinate.row]
         
-        if vestige.isSpecialObliterator {
-            handleSpecialObliteratorTile(vestige, at: indexPath, in: columnIndex)
+        if tessellation.possessesEradicationCapability {
+            executeEsotericEradicationProcedure(tessellation, at: indexCoordinate, within: cascadeIndex)
             return
         }
         
-        let magnitude = vestige.vestigeMagnitude
-        let isMaximumMagnitude = isVestigeMaximumInColumn(vestige, columnIndex: columnIndex)
+        let potency = tessellation.numericalPotency
+        let isApicalPotency = validateTessellationApicalSupremacy(tessellation, cascadeIndex: cascadeIndex)
         
-        if isMaximumMagnitude {
-            removeAllMaximumMagnitudesInColumn(magnitude: magnitude, columnIndex: columnIndex)
+        if isApicalPotency {
+            purgeAllApicalPotenciesWithinCascade(potency: potency, cascadeIndex: cascadeIndex)
             
-            if vestigeColumns[columnIndex].isEmpty {
-                replenishEmptyColumn(columnIndex)
+            if verticalTessellationCascades[cascadeIndex].isEmpty {
+                replenishDepletedCascade(cascadeIndex)
             }
         } else {
-            presentInvalidSelectionFeedback()
+            manifestInvalidSelectionFeedback()
         }
     }
     
-    func handleSpecialObliteratorTile(_ vestige: VestigeTileModel, at indexPath: IndexPath, in columnIndex: Int) {
-        guard let obliteratorType = vestige.obliteratorType else { return }
+    func executeEsotericEradicationProcedure(_ tessellation: EnigmaticTessellationEmbodiment, at indexCoordinate: IndexPath, within cascadeIndex: Int) {
+        guard let eradicationMethodology = tessellation.eradicationMethodology else { return }
         
-        vestigeColumns[columnIndex].remove(at: indexPath.row)
-        columnViews[columnIndex].deleteRows(at: [indexPath], with: .fade)
+        verticalTessellationCascades[cascadeIndex].remove(at: indexCoordinate.row)
+        cascadeVisualizationTables[cascadeIndex].deleteRows(at: [indexCoordinate], with: .fade)
         
-        switch obliteratorType {
-        case .obliterateSingle:
-            obliterateSingleColumnDirectly(columnIndex)
-        case .obliterateAll:
-            obliterateAllColumns()
+        switch eradicationMethodology {
+        case .singularColumnPurge:
+            executeSingularCascadePurge(cascadeIndex)
+        case .universalGridObliteration:
+            executeUniversalCascadeObliteration()
         }
     }
     
-    func removeAllMaximumMagnitudesInColumn(magnitude: Int, columnIndex: Int) {
-        var indicesToRemove: [Int] = []
+    func purgeAllApicalPotenciesWithinCascade(potency: Int, cascadeIndex: Int) {
+        var eradicationIndices: [Int] = []
         
-        for (index, vestige) in vestigeColumns[columnIndex].enumerated().reversed() {
-            if !vestige.isSpecialObliterator && vestige.vestigeMagnitude == magnitude {
-                indicesToRemove.append(index)
+        for (index, tessellation) in verticalTessellationCascades[cascadeIndex].enumerated().reversed() {
+            if !tessellation.possessesEradicationCapability && tessellation.numericalPotency == potency {
+                eradicationIndices.append(index)
             }
         }
         
-        var indexPaths: [IndexPath] = []
-        for index in indicesToRemove {
-            vestigeColumns[columnIndex].remove(at: index)
-            indexPaths.append(IndexPath(row: index, section: 0))
+        var indexCoordinates: [IndexPath] = []
+        for index in eradicationIndices {
+            verticalTessellationCascades[cascadeIndex].remove(at: index)
+            indexCoordinates.append(IndexPath(row: index, section: 0))
         }
         
-        if !indexPaths.isEmpty {
-            columnViews[columnIndex].deleteRows(at: indexPaths, with: .fade)
-            augmentTally(by: magnitude * 10 * indicesToRemove.count)
+        if !indexCoordinates.isEmpty {
+            cascadeVisualizationTables[cascadeIndex].deleteRows(at: indexCoordinates, with: .fade)
+            augmentAccumulatedScoring(by: potency * 10 * eradicationIndices.count)
             
-            for indexPath in indexPaths {
-                if let cell = columnViews[columnIndex].cellForRow(at: indexPath) {
-                    animateVestigeObliteration(cell: cell)
+            for indexCoordinate in indexCoordinates {
+                if let capsule = cascadeVisualizationTables[cascadeIndex].cellForRow(at: indexCoordinate) {
+                    choreographTessellationEradication(capsule: capsule)
                 }
             }
         }
     }
     
-    func isVestigeMaximumInColumn(_ vestige: VestigeTileModel, columnIndex: Int) -> Bool {
-        guard !vestigeColumns[columnIndex].isEmpty else { return false }
-        let maximumMagnitude = vestigeColumns[columnIndex].map { $0.vestigeMagnitude }.max() ?? 0
-        return vestige.vestigeMagnitude == maximumMagnitude
+    func validateTessellationApicalSupremacy(_ tessellation: EnigmaticTessellationEmbodiment, cascadeIndex: Int) -> Bool {
+        guard !verticalTessellationCascades[cascadeIndex].isEmpty else { return false }
+        let apicalPotency = verticalTessellationCascades[cascadeIndex].map { $0.numericalPotency }.max() ?? 0
+        return tessellation.numericalPotency == apicalPotency
     }
     
-    func animateVestigeObliteration(cell: UITableViewCell) {
+    func choreographTessellationEradication(capsule: UITableViewCell) {
         UIView.animate(withDuration: 0.3, animations: {
-            cell.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-            cell.alpha = 0
+            capsule.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            capsule.alpha = 0
         }) { _ in
-            cell.transform = .identity
-            cell.alpha = 1
+            capsule.transform = .identity
+            capsule.alpha = 1
         }
     }
     
-    func presentInvalidSelectionFeedback() {
-        let feedbackGenerator = UINotificationFeedbackGenerator()
-        feedbackGenerator.notificationOccurred(.error)
+    func manifestInvalidSelectionFeedback() {
+        let hapticsGenerator = UINotificationFeedbackGenerator()
+        hapticsGenerator.notificationOccurred(.error)
         
-        let alertController = UIAlertController(title: "Invalid Selection", message: "You must select the tile with the highest value in the column!", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alertController, animated: true)
+        let modalAlert = UIAlertController(title: "Invalid Selection", message: "You must select the tile with the highest value in the column!", preferredStyle: .alert)
+        modalAlert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(modalAlert, animated: true)
     }
     
-    func replenishEmptyColumn(_ columnIndex: Int) {
+    func replenishDepletedCascade(_ cascadeIndex: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            self?.appendInitialVestigesToColumn(columnIndex)
+            self?.infusePreliminaryTessellationsIntoCascade(cascadeIndex)
         }
     }
     
-    func obliterateSingleColumnDirectly(_ columnIndex: Int) {
-        guard isGameProceeding else { return }
+    func executeSingularCascadePurge(_ cascadeIndex: Int) {
+        guard isCeremonyProgressing else { return }
         
-        let vestigeCount = vestigeColumns[columnIndex].count
+        let tessellationQuantity = verticalTessellationCascades[cascadeIndex].count
         
-        if vestigeCount > 0 {
-            vestigeColumns[columnIndex].removeAll()
-            columnViews[columnIndex].reloadData()
+        if tessellationQuantity > 0 {
+            verticalTessellationCascades[cascadeIndex].removeAll()
+            cascadeVisualizationTables[cascadeIndex].reloadData()
             
-            augmentTally(by: vestigeCount * 5)
+            augmentAccumulatedScoring(by: tessellationQuantity * 5)
             
-            animateColumnClearance(columnIndex)
-            replenishEmptyColumn(columnIndex)
+            choreographCascadePurgeAnimation(cascadeIndex)
+            replenishDepletedCascade(cascadeIndex)
         }
     }
     
-    func obliterateAllColumns() {
-        guard isGameProceeding else { return }
+    func executeUniversalCascadeObliteration() {
+        guard isCeremonyProgressing else { return }
         
-        var totalVestiges = 0
-        for index in 0..<3 {
-            totalVestiges += vestigeColumns[index].count
-            vestigeColumns[index].removeAll()
-            columnViews[index].reloadData()
-            animateColumnClearance(index)
+        var totalTessellationCount = 0
+        for cascadeIndex in 0..<3 {
+            totalTessellationCount += verticalTessellationCascades[cascadeIndex].count
+            verticalTessellationCascades[cascadeIndex].removeAll()
+            cascadeVisualizationTables[cascadeIndex].reloadData()
+            choreographCascadePurgeAnimation(cascadeIndex)
         }
         
-        augmentTally(by: totalVestiges * 8)
+        augmentAccumulatedScoring(by: totalTessellationCount * 8)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            for index in 0..<3 {
-                self?.appendInitialVestigesToColumn(index)
+            for cascadeIndex in 0..<3 {
+                self?.infusePreliminaryTessellationsIntoCascade(cascadeIndex)
             }
         }
     }
     
-    func animateColumnClearance(_ columnIndex: Int) {
-        let containerView = columnBackgroundViews[columnIndex]
+    func choreographCascadePurgeAnimation(_ cascadeIndex: Int) {
+        let backgroundEncapsulation = cascadeBackgroundContainments[cascadeIndex]
         UIView.animate(withDuration: 0.3, animations: {
-            containerView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-            containerView.backgroundColor = self.columnHues[columnIndex].withAlphaComponent(0.6)
+            backgroundEncapsulation.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            backgroundEncapsulation.backgroundColor = self.cascadeChromatics[cascadeIndex].withAlphaComponent(0.6)
         }) { _ in
             UIView.animate(withDuration: 0.3) {
-                containerView.transform = .identity
-                containerView.backgroundColor = self.columnHues[columnIndex]
+                backgroundEncapsulation.transform = .identity
+                backgroundEncapsulation.backgroundColor = self.cascadeChromatics[cascadeIndex]
             }
         }
     }
     
-    func augmentTally(by points: Int) {
-        currentTally += points
-        refreshTallyDisplay()
+    func augmentAccumulatedScoring(by incrementalPoints: Int) {
+        accumulatedScoringTally += incrementalPoints
+        rejuvenateScoringInscription()
         
         UIView.animate(withDuration: 0.2, animations: {
-            self.tallyLabel.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            self.scoringTallyInscription.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         }) { _ in
             UIView.animate(withDuration: 0.2) {
-                self.tallyLabel.transform = .identity
+                self.scoringTallyInscription.transform = .identity
             }
         }
     }
     
-    func refreshTallyDisplay() {
-        tallyLabel.text = "Score: \(currentTally)"
+    func rejuvenateScoringInscription() {
+        scoringTallyInscription.text = "Score: \(accumulatedScoringTally)"
     }
     
-    func terminateGame() {
-        isGameProceeding = false
+    func terminateCeremony() {
+        isCeremonyProgressing = false
         
-        for index in 0..<3 {
-            vestigePropulsionTimers[index]?.invalidate()
-            vestigePropulsionTimers[index] = nil
+        for cascadeIndex in 0..<3 {
+            autonomousPropulsionChronometers[cascadeIndex]?.invalidate()
+            autonomousPropulsionChronometers[cascadeIndex] = nil
         }
         
-        let gameDuration = Date().timeIntervalSince(gameCommencedAt ?? Date())
-        let archive = ArchiveRecordModel(archiveScore: currentTally, archiveTimestamp: Date(), archiveDuration: gameDuration, archiveVelocity: currentVelocity)
-        ArchivePersistence.sharedCurator.conserveArchive(archive)
+        let ceremonyDuration = Date().timeIntervalSince(ceremonyInaugurationMoment ?? Date())
+        let documentationRecord = ChronologicalAchievementDocumentation(
+            accumulatedPoints: accumulatedScoringTally,
+            temporalMomentStamp: Date(),
+            engagementTimespan: ceremonyDuration,
+            executionCadence: activeExecutionCadence
+        )
+        ChronologicalAchievementConservatory.singularCurator.perpetuateAchievement(documentationRecord)
         
-        presentGameOverPrompt()
+        manifestTerminationInterface()
     }
     
-    func terminateGameWithoutSaving() {
-        isGameProceeding = false
+    func terminateCeremonyWithoutPreservation() {
+        isCeremonyProgressing = false
         
-        for index in 0..<3 {
-            vestigePropulsionTimers[index]?.invalidate()
-            vestigePropulsionTimers[index] = nil
+        for cascadeIndex in 0..<3 {
+            autonomousPropulsionChronometers[cascadeIndex]?.invalidate()
+            autonomousPropulsionChronometers[cascadeIndex] = nil
         }
     }
     
-    func presentGameOverPrompt() {
-        let alertController = UIAlertController(title: "Game Over!", message: "Your final score: \(currentTally)\n\nWould you like to play again?", preferredStyle: .alert)
+    func manifestTerminationInterface() {
+        let modalAlert = UIAlertController(
+            title: "Game Over!",
+            message: "Your final score: \(accumulatedScoringTally)\n\nWould you like to play again?",
+            preferredStyle: .alert
+        )
         
-        let playAgainAction = UIAlertAction(title: "Restart", style: .default) { [weak self] _ in
-            self?.resetGame()
+        let reigniteOption = UIAlertAction(title: "Restart", style: .default) { [weak self] _ in
+            self?.reinitializeCeremony()
         }
         
-        let exitAction = UIAlertAction(title: "Back to Menu", style: .cancel) { [weak self] _ in
+        let exitOption = UIAlertAction(title: "Back to Menu", style: .cancel) { [weak self] _ in
             self?.navigationController?.popViewController(animated: true)
         }
         
-        alertController.addAction(playAgainAction)
-        alertController.addAction(exitAction)
+        modalAlert.addAction(reigniteOption)
+        modalAlert.addAction(exitOption)
         
-        present(alertController, animated: true)
+        present(modalAlert, animated: true)
     }
     
-    func resetGame() {
-        for index in 0..<3 {
-            vestigeColumns[index].removeAll()
-            columnViews[index].reloadData()
+    func reinitializeCeremony() {
+        for cascadeIndex in 0..<3 {
+            verticalTessellationCascades[cascadeIndex].removeAll()
+            cascadeVisualizationTables[cascadeIndex].reloadData()
         }
         
-        presentVelocitySelectionPrompt()
+        presentCadenceSelectionInterface()
     }
 }
-

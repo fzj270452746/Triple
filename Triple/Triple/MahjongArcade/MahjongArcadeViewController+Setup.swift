@@ -7,118 +7,117 @@
 
 import UIKit
 
-extension MahjongArcadeViewController {
+extension MysticalTessellationOrchestrationController {
     
-    // MARK: - Interface Setup
-    func establishInterface() {
-        view.addSubview(backgroundImageView)
-        view.addSubview(dimmerOverlay)
-        view.addSubview(tallyLabel)
-        view.addSubview(columnsStackView)
-        view.addSubview(toggleMagnitudeButton)
-        view.addSubview(retreatButton)
+    // MARK: - Interface Orchestration
+    func orchestrateVisualizationHierarchy() {
+        view.addSubview(etherealBackdropImagery)
+        view.addSubview(obscuringTintedVeil)
+        view.addSubview(scoringTallyInscription)
+        view.addSubview(cascadesAggregationStack)
+        view.addSubview(potencyVisibilityToggleActuator)
+        view.addSubview(regressionNavigationTrigger)
         
-        establishConstraints()
-        fabricateColumnViews()
-        attachActionHandlers()
+        establishGeometricConstraints()
+        fabricateCascadeVisualizationInfrastructure()
+        assignInteractionHandlers()
     }
     
-    func establishConstraints() {
-        let safeArea = view.safeAreaLayoutGuide
-        let spacing = AdaptiveLayoutHelper.calculateSpacing(base: 20)
+    func establishGeometricConstraints() {
+        let protectedRegion = view.safeAreaLayoutGuide
+        let interstitialMeasurement = ResponsiveGeometryCalibrator.computeInterstitialGap(foundationGap: 20)
         
         NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            etherealBackdropImagery.topAnchor.constraint(equalTo: view.topAnchor),
+            etherealBackdropImagery.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            etherealBackdropImagery.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            etherealBackdropImagery.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            dimmerOverlay.topAnchor.constraint(equalTo: view.topAnchor),
-            dimmerOverlay.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            dimmerOverlay.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            dimmerOverlay.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            obscuringTintedVeil.topAnchor.constraint(equalTo: view.topAnchor),
+            obscuringTintedVeil.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            obscuringTintedVeil.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            obscuringTintedVeil.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            tallyLabel.topAnchor.constraint(equalTo: retreatButton.bottomAnchor, constant: 20),
-            tallyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scoringTallyInscription.topAnchor.constraint(equalTo: regressionNavigationTrigger.bottomAnchor, constant: 20),
+            scoringTallyInscription.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            columnsStackView.topAnchor.constraint(equalTo: tallyLabel.bottomAnchor, constant: spacing),
-            columnsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacing),
-            columnsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacing),
-            columnsStackView.bottomAnchor.constraint(equalTo: toggleMagnitudeButton.topAnchor, constant: -spacing),
+            cascadesAggregationStack.topAnchor.constraint(equalTo: scoringTallyInscription.bottomAnchor, constant: interstitialMeasurement),
+            cascadesAggregationStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: interstitialMeasurement),
+            cascadesAggregationStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -interstitialMeasurement),
+            cascadesAggregationStack.bottomAnchor.constraint(equalTo: potencyVisibilityToggleActuator.topAnchor, constant: -interstitialMeasurement),
             
-            toggleMagnitudeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            toggleMagnitudeButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -spacing),
-            toggleMagnitudeButton.widthAnchor.constraint(equalToConstant: AdaptiveLayoutHelper.calculateButtonSize(base: 160)),
-            toggleMagnitudeButton.heightAnchor.constraint(equalToConstant: 44),
+            potencyVisibilityToggleActuator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            potencyVisibilityToggleActuator.bottomAnchor.constraint(equalTo: protectedRegion.bottomAnchor, constant: -interstitialMeasurement),
+            potencyVisibilityToggleActuator.widthAnchor.constraint(equalToConstant: ResponsiveGeometryCalibrator.computeInteractiveElementDimension(foundationDimension: 160)),
+            potencyVisibilityToggleActuator.heightAnchor.constraint(equalToConstant: 44),
             
-            retreatButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacing),
-            retreatButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10),
-            retreatButton.widthAnchor.constraint(equalToConstant: 100),
-            retreatButton.heightAnchor.constraint(equalToConstant: 40)
+            regressionNavigationTrigger.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: interstitialMeasurement),
+            regressionNavigationTrigger.topAnchor.constraint(equalTo: protectedRegion.topAnchor, constant: 10),
+            regressionNavigationTrigger.widthAnchor.constraint(equalToConstant: 100),
+            regressionNavigationTrigger.heightAnchor.constraint(equalToConstant: 40)
         ])
         
-        tallyLabel.font = UIFont.boldSystemFont(ofSize: AdaptiveLayoutHelper.calculateFontSize(base: 28))
-        retreatButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: AdaptiveLayoutHelper.calculateFontSize(base: 18))
-        toggleMagnitudeButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: AdaptiveLayoutHelper.calculateFontSize(base: 16))
+        scoringTallyInscription.font = UIFont.boldSystemFont(ofSize: ResponsiveGeometryCalibrator.computeTypographicMagnitude(foundationSize: 28))
+        regressionNavigationTrigger.titleLabel?.font = UIFont.boldSystemFont(ofSize: ResponsiveGeometryCalibrator.computeTypographicMagnitude(foundationSize: 18))
+        potencyVisibilityToggleActuator.titleLabel?.font = UIFont.boldSystemFont(ofSize: ResponsiveGeometryCalibrator.computeTypographicMagnitude(foundationSize: 16))
     }
     
-    func fabricateColumnViews() {
-        for index in 0..<3 {
-            let containerView = UIView()
-            containerView.backgroundColor = columnHues[index]
-            containerView.layer.cornerRadius = 15
-            containerView.layer.borderWidth = 2
-            containerView.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
-            containerView.translatesAutoresizingMaskIntoConstraints = false
+    func fabricateCascadeVisualizationInfrastructure() {
+        for cascadeIndex in 0..<3 {
+            let encapsulationContainer = UIView()
+            encapsulationContainer.backgroundColor = cascadeChromatics[cascadeIndex]
+            encapsulationContainer.layer.cornerRadius = 15
+            encapsulationContainer.layer.borderWidth = 2
+            encapsulationContainer.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
+            encapsulationContainer.translatesAutoresizingMaskIntoConstraints = false
             
-            let tableView = UITableView()
-            tableView.backgroundColor = .clear
-            tableView.separatorStyle = .none
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.tag = index
-            tableView.register(VestigeTileCell.self, forCellReuseIdentifier: "VestigeTileCell")
-            tableView.translatesAutoresizingMaskIntoConstraints = false
-            tableView.showsVerticalScrollIndicator = false
-            tableView.allowsSelection = true
-            tableView.isScrollEnabled = false
+            let tessellationTable = UITableView()
+            tessellationTable.backgroundColor = .clear
+            tessellationTable.separatorStyle = .none
+            tessellationTable.delegate = self
+            tessellationTable.dataSource = self
+            tessellationTable.tag = cascadeIndex
+            tessellationTable.register(EnigmaticTessellationCapsule.self, forCellReuseIdentifier: "EnigmaticTessellationCapsule")
+            tessellationTable.translatesAutoresizingMaskIntoConstraints = false
+            tessellationTable.showsVerticalScrollIndicator = false
+            tessellationTable.allowsSelection = true
+            tessellationTable.isScrollEnabled = false
             
-            containerView.addSubview(tableView)
-            columnsStackView.addArrangedSubview(containerView)
+            encapsulationContainer.addSubview(tessellationTable)
+            cascadesAggregationStack.addArrangedSubview(encapsulationContainer)
             
             NSLayoutConstraint.activate([
-                tableView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
-                tableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
-                tableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
-                tableView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8)
+                tessellationTable.topAnchor.constraint(equalTo: encapsulationContainer.topAnchor, constant: 8),
+                tessellationTable.leadingAnchor.constraint(equalTo: encapsulationContainer.leadingAnchor, constant: 8),
+                tessellationTable.trailingAnchor.constraint(equalTo: encapsulationContainer.trailingAnchor, constant: -8),
+                tessellationTable.bottomAnchor.constraint(equalTo: encapsulationContainer.bottomAnchor, constant: -8)
             ])
             
-            columnViews.append(tableView)
-            columnBackgroundViews.append(containerView)
+            cascadeVisualizationTables.append(tessellationTable)
+            cascadeBackgroundContainments.append(encapsulationContainer)
         }
     }
     
-    func attachActionHandlers() {
-        toggleMagnitudeButton.addTarget(self, action: #selector(toggleMagnitudeDisplayTapped), for: .touchUpInside)
-        retreatButton.addTarget(self, action: #selector(retreatTapped), for: .touchUpInside)
+    func assignInteractionHandlers() {
+        potencyVisibilityToggleActuator.addTarget(self, action: #selector(actuatePotencyVisibilityToggle), for: .touchUpInside)
+        regressionNavigationTrigger.addTarget(self, action: #selector(executeRegressionNavigation), for: .touchUpInside)
     }
     
-    func presentVelocitySelectionPrompt() {
-        let alertController = UIAlertController(title: "Select Game Speed", message: "Choose the velocity at which tiles descend", preferredStyle: .alert)
+    func presentCadenceSelectionInterface() {
+        let modalPromptController = UIAlertController(title: "Select Game Speed", message: "Choose the velocity at which tiles descend", preferredStyle: .alert)
         
-        let briskAction = UIAlertAction(title: "⚡️ Fast", style: .default) { [weak self] _ in
-            self?.currentVelocity = .brisk
-            self?.commenceGame()
+        let acceleratedOption = UIAlertAction(title: "⚡️ Fast", style: .default) { [weak self] _ in
+            self?.activeExecutionCadence = .accelerated
+            self?.inaugurateCeremony()
         }
         
-        let sluggishAction = UIAlertAction(title: "🐢 Slow", style: .default) { [weak self] _ in
-            self?.currentVelocity = .sluggish
-            self?.commenceGame()
+        let deceleratedOption = UIAlertAction(title: "🐢 Slow", style: .default) { [weak self] _ in
+            self?.activeExecutionCadence = .decelerated
+            self?.inaugurateCeremony()
         }
         
-        alertController.addAction(briskAction)
-        alertController.addAction(sluggishAction)
-        present(alertController, animated: true)
+        modalPromptController.addAction(acceleratedOption)
+        modalPromptController.addAction(deceleratedOption)
+        present(modalPromptController, animated: true)
     }
 }
-

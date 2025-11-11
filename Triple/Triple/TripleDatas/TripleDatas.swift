@@ -8,153 +8,146 @@
 import Foundation
 import UIKit
 
-// MARK: - Vestige Model (Mahjong Tile Model)
-struct VestigeTileModel {
-    let vestigeImage: UIImage
-    let vestigeMagnitude: Int
-    let vestigeCategory: TileCategory
-    let isSpecialObliterator: Bool
-    let obliteratorType: ObliteratorType?
+// MARK: - Enigmatic Tessellation Embodiment
+struct EnigmaticTessellationEmbodiment {
+    let iconographicRepresentation: UIImage
+    let numericalPotency: Int
+    let taxonomicClassification: TaxonomicDivision
+    let possessesEradicationCapability: Bool
+    let eradicationMethodology: AnnihilationTechnique?
     
-    enum TileCategory: String {
+    enum TaxonomicDivision: String {
         case datong
         case wanyi
         case xiaotiao
-        case special
+        case esoteric
     }
     
-    enum ObliteratorType {
-        case obliterateSingle
-        case obliterateAll
+    enum AnnihilationTechnique {
+        case singularColumnPurge
+        case universalGridObliteration
     }
     
-    init(vestigeImage: UIImage, vestigeMagnitude: Int, vestigeCategory: TileCategory) {
-        self.vestigeImage = vestigeImage
-        self.vestigeMagnitude = vestigeMagnitude
-        self.vestigeCategory = vestigeCategory
-        self.isSpecialObliterator = false
-        self.obliteratorType = nil
+    init(iconographicRepresentation: UIImage, numericalPotency: Int, taxonomicClassification: TaxonomicDivision) {
+        self.iconographicRepresentation = iconographicRepresentation
+        self.numericalPotency = numericalPotency
+        self.taxonomicClassification = taxonomicClassification
+        self.possessesEradicationCapability = false
+        self.eradicationMethodology = nil
     }
     
-    init(specialImage: UIImage, obliteratorType: ObliteratorType) {
-        self.vestigeImage = specialImage
-        self.vestigeMagnitude = 0
-        self.vestigeCategory = .special
-        self.isSpecialObliterator = true
-        self.obliteratorType = obliteratorType
-    }
-}
-
-// MARK: - Archive Model (Game Record)
-struct ArchiveRecordModel: Codable {
-    let archiveScore: Int
-    let archiveTimestamp: Date
-    let archiveDuration: TimeInterval
-    let archiveVelocity: GameVelocity
-    
-    enum GameVelocity: String, Codable {
-        case brisk = "Fast"
-        case sluggish = "Slow"
+    init(esotericIcon: UIImage, annihilationApproach: AnnihilationTechnique) {
+        self.iconographicRepresentation = esotericIcon
+        self.numericalPotency = 0
+        self.taxonomicClassification = .esoteric
+        self.possessesEradicationCapability = true
+        self.eradicationMethodology = annihilationApproach
     }
 }
 
-// MARK: - Vestige Repository
-class VestigeRepository {
-    static let sharedDepot = VestigeRepository()
+// MARK: - Chronological Achievement Documentation
+struct ChronologicalAchievementDocumentation: Codable {
+    let accumulatedPoints: Int
+    let temporalMomentStamp: Date
+    let engagementTimespan: TimeInterval
+    let executionCadence: ExecutionCadence
     
-    let datongVestiges: [VestigeTileModel]
-    let wanyiVestiges: [VestigeTileModel]
-    let xiaotiaoVestiges: [VestigeTileModel]
-    let aggregatedVestiges: [VestigeTileModel]
+    enum ExecutionCadence: String, Codable {
+        case accelerated = "Fast"
+        case decelerated = "Slow"
+    }
+}
+
+// MARK: - Tessellation Anthology Emporium
+class TessellationAnthologyEmporium {
+    static let singularInstance = TessellationAnthologyEmporium()
+    
+    let datongCollectionArray: [EnigmaticTessellationEmbodiment]
+    let wanyiCollectionArray: [EnigmaticTessellationEmbodiment]
+    let xiaotiaoCollectionArray: [EnigmaticTessellationEmbodiment]
+    let amalgamatedCollectionRepository: [EnigmaticTessellationEmbodiment]
     
     init() {
-        datongVestiges = [
-            VestigeTileModel(vestigeImage: UIImage(named: "datong 1")!, vestigeMagnitude: 1, vestigeCategory: .datong),
-            VestigeTileModel(vestigeImage: UIImage(named: "datong 2")!, vestigeMagnitude: 2, vestigeCategory: .datong),
-            VestigeTileModel(vestigeImage: UIImage(named: "datong 3")!, vestigeMagnitude: 3, vestigeCategory: .datong),
-            VestigeTileModel(vestigeImage: UIImage(named: "datong 4")!, vestigeMagnitude: 4, vestigeCategory: .datong),
-            VestigeTileModel(vestigeImage: UIImage(named: "datong 5")!, vestigeMagnitude: 5, vestigeCategory: .datong),
-            VestigeTileModel(vestigeImage: UIImage(named: "datong 6")!, vestigeMagnitude: 6, vestigeCategory: .datong),
-            VestigeTileModel(vestigeImage: UIImage(named: "datong 7")!, vestigeMagnitude: 7, vestigeCategory: .datong),
-            VestigeTileModel(vestigeImage: UIImage(named: "datong 8")!, vestigeMagnitude: 8, vestigeCategory: .datong),
-            VestigeTileModel(vestigeImage: UIImage(named: "datong 9")!, vestigeMagnitude: 9, vestigeCategory: .datong)
-        ]
+        datongCollectionArray = (1...9).map { index in
+            EnigmaticTessellationEmbodiment(
+                iconographicRepresentation: UIImage(named: "datong \(index)")!,
+                numericalPotency: index,
+                taxonomicClassification: .datong
+            )
+        }
         
-        wanyiVestiges = [
-            VestigeTileModel(vestigeImage: UIImage(named: "wanyi 1")!, vestigeMagnitude: 1, vestigeCategory: .wanyi),
-            VestigeTileModel(vestigeImage: UIImage(named: "wanyi 2")!, vestigeMagnitude: 2, vestigeCategory: .wanyi),
-            VestigeTileModel(vestigeImage: UIImage(named: "wanyi 3")!, vestigeMagnitude: 3, vestigeCategory: .wanyi),
-            VestigeTileModel(vestigeImage: UIImage(named: "wanyi 4")!, vestigeMagnitude: 4, vestigeCategory: .wanyi),
-            VestigeTileModel(vestigeImage: UIImage(named: "wanyi 5")!, vestigeMagnitude: 5, vestigeCategory: .wanyi),
-            VestigeTileModel(vestigeImage: UIImage(named: "wanyi 6")!, vestigeMagnitude: 6, vestigeCategory: .wanyi),
-            VestigeTileModel(vestigeImage: UIImage(named: "wanyi 7")!, vestigeMagnitude: 7, vestigeCategory: .wanyi),
-            VestigeTileModel(vestigeImage: UIImage(named: "wanyi 8")!, vestigeMagnitude: 8, vestigeCategory: .wanyi),
-            VestigeTileModel(vestigeImage: UIImage(named: "wanyi 9")!, vestigeMagnitude: 9, vestigeCategory: .wanyi)
-        ]
+        wanyiCollectionArray = (1...9).map { index in
+            EnigmaticTessellationEmbodiment(
+                iconographicRepresentation: UIImage(named: "wanyi \(index)")!,
+                numericalPotency: index,
+                taxonomicClassification: .wanyi
+            )
+        }
         
-        xiaotiaoVestiges = [
-            VestigeTileModel(vestigeImage: UIImage(named: "xiaotiao 1")!, vestigeMagnitude: 1, vestigeCategory: .xiaotiao),
-            VestigeTileModel(vestigeImage: UIImage(named: "xiaotiao 2")!, vestigeMagnitude: 2, vestigeCategory: .xiaotiao),
-            VestigeTileModel(vestigeImage: UIImage(named: "xiaotiao 3")!, vestigeMagnitude: 3, vestigeCategory: .xiaotiao),
-            VestigeTileModel(vestigeImage: UIImage(named: "xiaotiao 4")!, vestigeMagnitude: 4, vestigeCategory: .xiaotiao),
-            VestigeTileModel(vestigeImage: UIImage(named: "xiaotiao 5")!, vestigeMagnitude: 5, vestigeCategory: .xiaotiao),
-            VestigeTileModel(vestigeImage: UIImage(named: "xiaotiao 6")!, vestigeMagnitude: 6, vestigeCategory: .xiaotiao),
-            VestigeTileModel(vestigeImage: UIImage(named: "xiaotiao 7")!, vestigeMagnitude: 7, vestigeCategory: .xiaotiao),
-            VestigeTileModel(vestigeImage: UIImage(named: "xiaotiao 8")!, vestigeMagnitude: 8, vestigeCategory: .xiaotiao),
-            VestigeTileModel(vestigeImage: UIImage(named: "xiaotiao 9")!, vestigeMagnitude: 9, vestigeCategory: .xiaotiao)
-        ]
+        xiaotiaoCollectionArray = (1...9).map { index in
+            EnigmaticTessellationEmbodiment(
+                iconographicRepresentation: UIImage(named: "xiaotiao \(index)")!,
+                numericalPotency: index,
+                taxonomicClassification: .xiaotiao
+            )
+        }
         
-        aggregatedVestiges = datongVestiges + wanyiVestiges + xiaotiaoVestiges
+        amalgamatedCollectionRepository = datongCollectionArray + wanyiCollectionArray + xiaotiaoCollectionArray
     }
     
-    func fetchArbitraryVestige() -> VestigeTileModel {
-        let randomValue = Int.random(in: 1...100)
+    func procureArbitraryTessellation() -> EnigmaticTessellationEmbodiment {
+        let stochasticValue = Int.random(in: 1...100)
         
-        if randomValue <= 5 {
-            return VestigeTileModel(specialImage: UIImage(named: "deleteOne")!, obliteratorType: .obliterateSingle)
-        } else if randomValue <= 8 {
-            return VestigeTileModel(specialImage: UIImage(named: "deleteAll")!, obliteratorType: .obliterateAll)
+        if stochasticValue <= 5 {
+            return EnigmaticTessellationEmbodiment(
+                esotericIcon: UIImage(named: "deleteOne")!,
+                annihilationApproach: .singularColumnPurge
+            )
+        } else if stochasticValue <= 8 {
+            return EnigmaticTessellationEmbodiment(
+                esotericIcon: UIImage(named: "deleteAll")!,
+                annihilationApproach: .universalGridObliteration
+            )
         } else {
-            return aggregatedVestiges.randomElement()!
+            return amalgamatedCollectionRepository.randomElement()!
         }
     }
 }
 
-// MARK: - Archive Persistence
-class ArchivePersistence {
-    static let sharedCurator = ArchivePersistence()
-    let archiveKey = "MahjongArchiveRecords"
+// MARK: - Chronological Achievement Conservatory
+class ChronologicalAchievementConservatory {
+    static let singularCurator = ChronologicalAchievementConservatory()
+    private let permanentStorageIdentifier = "MahjongArchiveRecords"
     
-    func conserveArchive(_ archive: ArchiveRecordModel) {
-        var archives = retrieveArchives()
-        archives.append(archive)
-        archives.sort { $0.archiveScore > $1.archiveScore }
+    func perpetuateAchievement(_ documentation: ChronologicalAchievementDocumentation) {
+        var existingDocumentations = retrievePerpetuatedAchievements()
+        existingDocumentations.append(documentation)
+        existingDocumentations.sort { $0.accumulatedPoints > $1.accumulatedPoints }
         
-        if let encodedData = try? JSONEncoder().encode(archives) {
-            UserDefaults.standard.set(encodedData, forKey: archiveKey)
+        if let serializedData = try? JSONEncoder().encode(existingDocumentations) {
+            UserDefaults.standard.set(serializedData, forKey: permanentStorageIdentifier)
         }
     }
     
-    func retrieveArchives() -> [ArchiveRecordModel] {
-        guard let data = UserDefaults.standard.data(forKey: archiveKey),
-              let archives = try? JSONDecoder().decode([ArchiveRecordModel].self, from: data) else {
+    func retrievePerpetuatedAchievements() -> [ChronologicalAchievementDocumentation] {
+        guard let persistedData = UserDefaults.standard.data(forKey: permanentStorageIdentifier),
+              let decodedDocumentations = try? JSONDecoder().decode([ChronologicalAchievementDocumentation].self, from: persistedData) else {
             return []
         }
-        return archives
+        return decodedDocumentations
     }
     
-    func obliterateArchive(at index: Int) {
-        var archives = retrieveArchives()
-        guard index < archives.count else { return }
-        archives.remove(at: index)
+    func eradicateSpecificAchievement(at indexPosition: Int) {
+        var existingDocumentations = retrievePerpetuatedAchievements()
+        guard indexPosition < existingDocumentations.count else { return }
+        existingDocumentations.remove(at: indexPosition)
         
-        if let encodedData = try? JSONEncoder().encode(archives) {
-            UserDefaults.standard.set(encodedData, forKey: archiveKey)
+        if let serializedData = try? JSONEncoder().encode(existingDocumentations) {
+            UserDefaults.standard.set(serializedData, forKey: permanentStorageIdentifier)
         }
     }
     
-    func obliterateAllArchives() {
-        UserDefaults.standard.removeObject(forKey: archiveKey)
+    func annihilateAllPerpetuatedAchievements() {
+        UserDefaults.standard.removeObject(forKey: permanentStorageIdentifier)
     }
 }
-

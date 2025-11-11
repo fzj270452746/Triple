@@ -17,17 +17,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripleImage" translatesAutoresizingMaskIntoConstraints="NO" id="7pJ-GJ-bPg">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripleImage" translatesAutoresizingMaskIntoConstraints="NO" id="Jc7-wR-vn7">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="7pJ-GJ-bPg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="NHW-gY-Sri"/>
-                            <constraint firstItem="7pJ-GJ-bPg" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="icL-4u-gvP"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7pJ-GJ-bPg" secondAttribute="trailing" id="kub-1f-K8R"/>
-                            <constraint firstAttribute="top" secondItem="7pJ-GJ-bPg" secondAttribute="top" id="sld-yB-0jI"/>
+                            <constraint firstAttribute="top" secondItem="Jc7-wR-vn7" secondAttribute="top" id="9P7-mJ-RSt"/>
+                            <constraint firstItem="Jc7-wR-vn7" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="GCI-2q-rQv"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Jc7-wR-vn7" secondAttribute="trailing" id="gs0-95-OVL"/>
+                            <constraint firstItem="Jc7-wR-vn7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zgM-d5-Kol"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -37,7 +37,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="tripleImage" width="2784" height="6016"/>
+        <image name="tripleImage" width="2000" height="3556"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

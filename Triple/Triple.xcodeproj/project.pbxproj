@@ -7,49 +7,67 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		281F78482EC1D0D6006D5D37 /* SnajiaBydu.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281F78472EC1D0D6006D5D37 /* SnajiaBydu.xcframework */; };
-		F36AB1865CAFD38D0DA290EF /* Pods_Triple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8C10110D7FF799DDFB74C8 /* Pods_Triple.framework */; };
+		097344A291D1DD12260F5447 /* Pods_Triple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7FA709AFFBE6D3E1066C12 /* Pods_Triple.framework */; };
+		281F79802EC37798006D5D37 /* SnajiaBydu.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281F797F2EC37798006D5D37 /* SnajiaBydu.xcframework */; };
+		FE3E731A2EC3662900B52821 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E73022EC3662900B52821 /* GameMode.swift */; };
+		FE3E731B2EC3662900B52821 /* TimeAttackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E73112EC3662900B52821 /* TimeAttackViewController.swift */; };
+		FE3E731C2EC3662900B52821 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E73002EC3662900B52821 /* BaseViewController.swift */; };
+		FE3E731D2EC3662900B52821 /* TimeAttackModeSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E730F2EC3662900B52821 /* TimeAttackModeSelectViewController.swift */; };
+		FE3E731E2EC3662900B52821 /* ArchiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E72FD2EC3662900B52821 /* ArchiveViewController.swift */; };
+		FE3E731F2EC3662900B52821 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E730E2EC3662900B52821 /* SceneDelegate.swift */; };
+		FE3E73202EC3662900B52821 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E72FC2EC3662900B52821 /* AppDelegate.swift */; };
+		FE3E73212EC3662900B52821 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E73062EC3662900B52821 /* GuideViewController.swift */; };
+		FE3E73222EC3662900B52821 /* UIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E73042EC3662900B52821 /* UIFactory.swift */; };
+		FE3E73232EC3662900B52821 /* AnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E72FF2EC3662900B52821 /* AnimationManager.swift */; };
+		FE3E73242EC3662900B52821 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E73012EC3662900B52821 /* GameManager.swift */; };
+		FE3E73252EC3662900B52821 /* TimeAttackResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E73102EC3662900B52821 /* TimeAttackResultViewController.swift */; };
+		FE3E73262EC3662900B52821 /* MahjongArcadeViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E730B2EC3662900B52821 /* MahjongArcadeViewController+Actions.swift */; };
+		FE3E73272EC3662900B52821 /* MahjongArcadeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E730A2EC3662900B52821 /* MahjongArcadeViewController.swift */; };
+		FE3E73282EC3662900B52821 /* TripleDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E73142EC3662900B52821 /* TripleDatas.swift */; };
+		FE3E73292EC3662900B52821 /* MahjongArcadeViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E730C2EC3662900B52821 /* MahjongArcadeViewController+Helpers.swift */; };
+		FE3E732A2EC3662900B52821 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E73082EC3662900B52821 /* InitialViewController.swift */; };
+		FE3E732B2EC3662900B52821 /* UIDevice+Adaptation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E73162EC3662900B52821 /* UIDevice+Adaptation.swift */; };
+		FE3E732C2EC3662900B52821 /* LayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E73032EC3662900B52821 /* LayoutManager.swift */; };
+		FE3E732D2EC3662900B52821 /* VestigeTileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E73182EC3662900B52821 /* VestigeTileCell.swift */; };
+		FE3E732E2EC3662900B52821 /* TimeAttackViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E73122EC3662900B52821 /* TimeAttackViewController+Delegate.swift */; };
 		FEEC172E2EBA3BB000FD105A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEEC17232EBA3BB000FD105A /* Assets.xcassets */; };
 		FEEC17302EBA3BB000FD105A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEEC17262EBA3BB000FD105A /* LaunchScreen.storyboard */; };
 		FEEC17312EBA3BB000FD105A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEEC17282EBA3BB000FD105A /* Main.storyboard */; };
-		FEEC17322EBA3BB000FD105A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC17222EBA3BB000FD105A /* AppDelegate.swift */; };
-		FEEC17332EBA3BB000FD105A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC17292EBA3BB000FD105A /* SceneDelegate.swift */; };
 		FEEC17342EBA3BB000FD105A /* Triple.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FEEC172A2EBA3BB000FD105A /* Triple.xcdatamodeld */; };
-		FEEC17372EBA3DF300FD105A /* TripleDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC17362EBA3DF300FD105A /* TripleDatas.swift */; };
-		FEEC17382EBA3E0000FD105A /* MahjongArcadeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC17392EBA3E0000FD105A /* MahjongArcadeViewController.swift */; };
-		FEEC173A2EBA3E0100FD105A /* MahjongArcadeViewController+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC173B2EBA3E0100FD105A /* MahjongArcadeViewController+Setup.swift */; };
-		FEEC173C2EBA3E0200FD105A /* MahjongArcadeViewController+GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC173D2EBA3E0200FD105A /* MahjongArcadeViewController+GameLogic.swift */; };
-		FEEC173E2EBA3E0300FD105A /* MahjongArcadeViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC173F2EBA3E0300FD105A /* MahjongArcadeViewController+Actions.swift */; };
-		FEEC17402EBA3E0400FD105A /* VestigeTileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC17412EBA3E0400FD105A /* VestigeTileCell.swift */; };
-		FEEC17422EBA3E0500FD105A /* ArchiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC17432EBA3E0500FD105A /* ArchiveViewController.swift */; };
-		FEEC17442EBA3E0600FD105A /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC17452EBA3E0600FD105A /* GuideViewController.swift */; };
-		FEEC17462EBA3E0700FD105A /* UIDevice+Adaptation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC17472EBA3E0700FD105A /* UIDevice+Adaptation.swift */; };
-		FEEC17482EBA3F0800FD105A /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC17492EBA3F0800FD105A /* InitialViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		281F78472EC1D0D6006D5D37 /* SnajiaBydu.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SnajiaBydu.xcframework; sourceTree = "<group>"; };
-		629629DF4DB352A7AE5D7DBB /* Pods-Triple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triple.debug.xcconfig"; path = "Target Support Files/Pods-Triple/Pods-Triple.debug.xcconfig"; sourceTree = "<group>"; };
-		6C3B92E41C2D7E4657420D8A /* Pods-Triple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triple.release.xcconfig"; path = "Target Support Files/Pods-Triple/Pods-Triple.release.xcconfig"; sourceTree = "<group>"; };
-		9D8C10110D7FF799DDFB74C8 /* Pods_Triple.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Triple.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		18555D33961E9C6C54714B1B /* Pods-Triple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triple.release.xcconfig"; path = "Target Support Files/Pods-Triple/Pods-Triple.release.xcconfig"; sourceTree = "<group>"; };
+		20486D4AA7A3BB52A8EACB07 /* Pods-Triple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triple.debug.xcconfig"; path = "Target Support Files/Pods-Triple/Pods-Triple.debug.xcconfig"; sourceTree = "<group>"; };
+		281F797F2EC37798006D5D37 /* SnajiaBydu.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SnajiaBydu.xcframework; sourceTree = "<group>"; };
+		9B7FA709AFFBE6D3E1066C12 /* Pods_Triple.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Triple.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE3E72FC2EC3662900B52821 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FE3E72FD2EC3662900B52821 /* ArchiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveViewController.swift; sourceTree = "<group>"; };
+		FE3E72FF2EC3662900B52821 /* AnimationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationManager.swift; sourceTree = "<group>"; };
+		FE3E73002EC3662900B52821 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		FE3E73012EC3662900B52821 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		FE3E73022EC3662900B52821 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
+		FE3E73032EC3662900B52821 /* LayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutManager.swift; sourceTree = "<group>"; };
+		FE3E73042EC3662900B52821 /* UIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFactory.swift; sourceTree = "<group>"; };
+		FE3E73062EC3662900B52821 /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
+		FE3E73082EC3662900B52821 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		FE3E730A2EC3662900B52821 /* MahjongArcadeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MahjongArcadeViewController.swift; sourceTree = "<group>"; };
+		FE3E730B2EC3662900B52821 /* MahjongArcadeViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MahjongArcadeViewController+Actions.swift"; sourceTree = "<group>"; };
+		FE3E730C2EC3662900B52821 /* MahjongArcadeViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MahjongArcadeViewController+Helpers.swift"; sourceTree = "<group>"; };
+		FE3E730E2EC3662900B52821 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		FE3E730F2EC3662900B52821 /* TimeAttackModeSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAttackModeSelectViewController.swift; sourceTree = "<group>"; };
+		FE3E73102EC3662900B52821 /* TimeAttackResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAttackResultViewController.swift; sourceTree = "<group>"; };
+		FE3E73112EC3662900B52821 /* TimeAttackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAttackViewController.swift; sourceTree = "<group>"; };
+		FE3E73122EC3662900B52821 /* TimeAttackViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeAttackViewController+Delegate.swift"; sourceTree = "<group>"; };
+		FE3E73142EC3662900B52821 /* TripleDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleDatas.swift; sourceTree = "<group>"; };
+		FE3E73162EC3662900B52821 /* UIDevice+Adaptation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Adaptation.swift"; sourceTree = "<group>"; };
+		FE3E73182EC3662900B52821 /* VestigeTileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VestigeTileCell.swift; sourceTree = "<group>"; };
 		FEEC17072EBA3B9B00FD105A /* Triple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Triple.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FEEC17222EBA3BB000FD105A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FEEC17232EBA3BB000FD105A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FEEC17242EBA3BB000FD105A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FEEC17252EBA3BB000FD105A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FEEC17272EBA3BB000FD105A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FEEC17292EBA3BB000FD105A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FEEC172D2EBA3BB000FD105A /* Triple.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Triple.xcdatamodel; sourceTree = "<group>"; };
-		FEEC17362EBA3DF300FD105A /* TripleDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleDatas.swift; sourceTree = "<group>"; };
-		FEEC17392EBA3E0000FD105A /* MahjongArcadeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MahjongArcadeViewController.swift; sourceTree = "<group>"; };
-		FEEC173B2EBA3E0100FD105A /* MahjongArcadeViewController+Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MahjongArcadeViewController+Setup.swift"; sourceTree = "<group>"; };
-		FEEC173D2EBA3E0200FD105A /* MahjongArcadeViewController+GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MahjongArcadeViewController+GameLogic.swift"; sourceTree = "<group>"; };
-		FEEC173F2EBA3E0300FD105A /* MahjongArcadeViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MahjongArcadeViewController+Actions.swift"; sourceTree = "<group>"; };
-		FEEC17412EBA3E0400FD105A /* VestigeTileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VestigeTileCell.swift; sourceTree = "<group>"; };
-		FEEC17432EBA3E0500FD105A /* ArchiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveViewController.swift; sourceTree = "<group>"; };
-		FEEC17452EBA3E0600FD105A /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
-		FEEC17472EBA3E0700FD105A /* UIDevice+Adaptation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Adaptation.swift"; sourceTree = "<group>"; };
-		FEEC17492EBA3F0800FD105A /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,29 +75,111 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F36AB1865CAFD38D0DA290EF /* Pods_Triple.framework in Frameworks */,
-				281F78482EC1D0D6006D5D37 /* SnajiaBydu.xcframework in Frameworks */,
+				097344A291D1DD12260F5447 /* Pods_Triple.framework in Frameworks */,
+				281F79802EC37798006D5D37 /* SnajiaBydu.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		23F5B416EB3A8BAA790C96A1 /* Frameworks */ = {
+		12D02899563C291FFCE35A35 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9D8C10110D7FF799DDFB74C8 /* Pods_Triple.framework */,
+				20486D4AA7A3BB52A8EACB07 /* Pods-Triple.debug.xcconfig */,
+				18555D33961E9C6C54714B1B /* Pods-Triple.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		BE5A3BC8212D6831A6ACB549 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9B7FA709AFFBE6D3E1066C12 /* Pods_Triple.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		39D1C7D51AC1DB24022517AC /* Pods */ = {
+		FE3E72FE2EC3662900B52821 /* Archivew */ = {
 			isa = PBXGroup;
 			children = (
-				629629DF4DB352A7AE5D7DBB /* Pods-Triple.debug.xcconfig */,
-				6C3B92E41C2D7E4657420D8A /* Pods-Triple.release.xcconfig */,
+				FE3E72FD2EC3662900B52821 /* ArchiveViewController.swift */,
 			);
-			path = Pods;
+			path = Archivew;
+			sourceTree = "<group>";
+		};
+		FE3E73052EC3662900B52821 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				FE3E72FF2EC3662900B52821 /* AnimationManager.swift */,
+				FE3E73002EC3662900B52821 /* BaseViewController.swift */,
+				FE3E73012EC3662900B52821 /* GameManager.swift */,
+				FE3E73022EC3662900B52821 /* GameMode.swift */,
+				FE3E73032EC3662900B52821 /* LayoutManager.swift */,
+				FE3E73042EC3662900B52821 /* UIFactory.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		FE3E73072EC3662900B52821 /* Guide */ = {
+			isa = PBXGroup;
+			children = (
+				FE3E73062EC3662900B52821 /* GuideViewController.swift */,
+			);
+			path = Guide;
+			sourceTree = "<group>";
+		};
+		FE3E73092EC3662900B52821 /* Init */ = {
+			isa = PBXGroup;
+			children = (
+				FE3E73082EC3662900B52821 /* InitialViewController.swift */,
+			);
+			path = Init;
+			sourceTree = "<group>";
+		};
+		FE3E730D2EC3662900B52821 /* MahjongArcade */ = {
+			isa = PBXGroup;
+			children = (
+				FE3E730A2EC3662900B52821 /* MahjongArcadeViewController.swift */,
+				FE3E730B2EC3662900B52821 /* MahjongArcadeViewController+Actions.swift */,
+				FE3E730C2EC3662900B52821 /* MahjongArcadeViewController+Helpers.swift */,
+			);
+			path = MahjongArcade;
+			sourceTree = "<group>";
+		};
+		FE3E73132EC3662900B52821 /* TimeAttack */ = {
+			isa = PBXGroup;
+			children = (
+				FE3E730F2EC3662900B52821 /* TimeAttackModeSelectViewController.swift */,
+				FE3E73102EC3662900B52821 /* TimeAttackResultViewController.swift */,
+				FE3E73112EC3662900B52821 /* TimeAttackViewController.swift */,
+				FE3E73122EC3662900B52821 /* TimeAttackViewController+Delegate.swift */,
+			);
+			path = TimeAttack;
+			sourceTree = "<group>";
+		};
+		FE3E73152EC3662900B52821 /* TripleDatas */ = {
+			isa = PBXGroup;
+			children = (
+				FE3E73142EC3662900B52821 /* TripleDatas.swift */,
+			);
+			path = TripleDatas;
+			sourceTree = "<group>";
+		};
+		FE3E73172EC3662900B52821 /* U+A */ = {
+			isa = PBXGroup;
+			children = (
+				FE3E73162EC3662900B52821 /* UIDevice+Adaptation.swift */,
+			);
+			path = "U+A";
+			sourceTree = "<group>";
+		};
+		FE3E73192EC3662900B52821 /* VestigeCell */ = {
+			isa = PBXGroup;
+			children = (
+				FE3E73182EC3662900B52821 /* VestigeTileCell.swift */,
+			);
+			path = VestigeCell;
 			sourceTree = "<group>";
 		};
 		FEEC16FE2EBA3B9B00FD105A = {
@@ -87,8 +187,8 @@
 			children = (
 				FEEC172C2EBA3BB000FD105A /* Triple */,
 				FEEC17082EBA3B9B00FD105A /* Products */,
-				39D1C7D51AC1DB24022517AC /* Pods */,
-				23F5B416EB3A8BAA790C96A1 /* Frameworks */,
+				12D02899563C291FFCE35A35 /* Pods */,
+				BE5A3BC8212D6831A6ACB549 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,82 +203,25 @@
 		FEEC172C2EBA3BB000FD105A /* Triple */ = {
 			isa = PBXGroup;
 			children = (
-				FEEC17222EBA3BB000FD105A /* AppDelegate.swift */,
+				FE3E72FC2EC3662900B52821 /* AppDelegate.swift */,
+				FE3E72FE2EC3662900B52821 /* Archivew */,
+				FE3E73052EC3662900B52821 /* Core */,
+				FE3E73072EC3662900B52821 /* Guide */,
+				FE3E73092EC3662900B52821 /* Init */,
+				FE3E730D2EC3662900B52821 /* MahjongArcade */,
+				FE3E730E2EC3662900B52821 /* SceneDelegate.swift */,
+				281F797F2EC37798006D5D37 /* SnajiaBydu.xcframework */,
+				FE3E73132EC3662900B52821 /* TimeAttack */,
+				FE3E73152EC3662900B52821 /* TripleDatas */,
+				FE3E73172EC3662900B52821 /* U+A */,
+				FE3E73192EC3662900B52821 /* VestigeCell */,
 				FEEC17232EBA3BB000FD105A /* Assets.xcassets */,
 				FEEC17242EBA3BB000FD105A /* Info.plist */,
 				FEEC17262EBA3BB000FD105A /* LaunchScreen.storyboard */,
 				FEEC17282EBA3BB000FD105A /* Main.storyboard */,
-				FEEC17292EBA3BB000FD105A /* SceneDelegate.swift */,
-				281F78472EC1D0D6006D5D37 /* SnajiaBydu.xcframework */,
 				FEEC172A2EBA3BB000FD105A /* Triple.xcdatamodeld */,
-				FEEC17382EBA546B00FD105A /* TripleDatas */,
-				FEEC17392EBA547400FD105A /* MahjongArcade */,
-				FEEC173A2EBA547D00FD105A /* VestigeCell */,
-				FEEC173B2EBA548500FD105A /* Archivew */,
-				FEEC173C2EBA548D00FD105A /* Guide */,
-				FEEC173E2EBA549800FD105A /* U+A */,
-				FEEC173D2EBA549300FD105A /* Init */,
 			);
 			path = Triple;
-			sourceTree = "<group>";
-		};
-		FEEC17382EBA546B00FD105A /* TripleDatas */ = {
-			isa = PBXGroup;
-			children = (
-				FEEC17362EBA3DF300FD105A /* TripleDatas.swift */,
-			);
-			path = TripleDatas;
-			sourceTree = "<group>";
-		};
-		FEEC17392EBA547400FD105A /* MahjongArcade */ = {
-			isa = PBXGroup;
-			children = (
-				FEEC17392EBA3E0000FD105A /* MahjongArcadeViewController.swift */,
-				FEEC173B2EBA3E0100FD105A /* MahjongArcadeViewController+Setup.swift */,
-				FEEC173D2EBA3E0200FD105A /* MahjongArcadeViewController+GameLogic.swift */,
-				FEEC173F2EBA3E0300FD105A /* MahjongArcadeViewController+Actions.swift */,
-			);
-			path = MahjongArcade;
-			sourceTree = "<group>";
-		};
-		FEEC173A2EBA547D00FD105A /* VestigeCell */ = {
-			isa = PBXGroup;
-			children = (
-				FEEC17412EBA3E0400FD105A /* VestigeTileCell.swift */,
-			);
-			path = VestigeCell;
-			sourceTree = "<group>";
-		};
-		FEEC173B2EBA548500FD105A /* Archivew */ = {
-			isa = PBXGroup;
-			children = (
-				FEEC17432EBA3E0500FD105A /* ArchiveViewController.swift */,
-			);
-			path = Archivew;
-			sourceTree = "<group>";
-		};
-		FEEC173C2EBA548D00FD105A /* Guide */ = {
-			isa = PBXGroup;
-			children = (
-				FEEC17452EBA3E0600FD105A /* GuideViewController.swift */,
-			);
-			path = Guide;
-			sourceTree = "<group>";
-		};
-		FEEC173D2EBA549300FD105A /* Init */ = {
-			isa = PBXGroup;
-			children = (
-				FEEC17492EBA3F0800FD105A /* InitialViewController.swift */,
-			);
-			path = Init;
-			sourceTree = "<group>";
-		};
-		FEEC173E2EBA549800FD105A /* U+A */ = {
-			isa = PBXGroup;
-			children = (
-				FEEC17472EBA3E0700FD105A /* UIDevice+Adaptation.swift */,
-			);
-			path = "U+A";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,11 +231,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FEEC171D2EBA3B9D00FD105A /* Build configuration list for PBXNativeTarget "Triple" */;
 			buildPhases = (
-				46756C2B4ED93476886C12CA /* [CP] Check Pods Manifest.lock */,
+				A8E4FAACFCF4DD749F75224D /* [CP] Check Pods Manifest.lock */,
 				FEEC17032EBA3B9B00FD105A /* Sources */,
 				FEEC17042EBA3B9B00FD105A /* Frameworks */,
 				FEEC17052EBA3B9B00FD105A /* Resources */,
-				A945BB0181BC64FF8C17B6D1 /* [CP] Embed Pods Frameworks */,
+				7F9F5B157C01CE80A4F53E68 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -251,7 +294,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		46756C2B4ED93476886C12CA /* [CP] Check Pods Manifest.lock */ = {
+		7F9F5B157C01CE80A4F53E68 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Triple/Pods-Triple-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Triple/Pods-Triple-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Triple/Pods-Triple-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A8E4FAACFCF4DD749F75224D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -273,27 +337,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A945BB0181BC64FF8C17B6D1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Triple/Pods-Triple-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Triple/Pods-Triple-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Triple/Pods-Triple-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -301,19 +344,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FEEC17322EBA3BB000FD105A /* AppDelegate.swift in Sources */,
-				FEEC17372EBA3DF300FD105A /* TripleDatas.swift in Sources */,
-				FEEC17332EBA3BB000FD105A /* SceneDelegate.swift in Sources */,
 				FEEC17342EBA3BB000FD105A /* Triple.xcdatamodeld in Sources */,
-				FEEC17382EBA3E0000FD105A /* MahjongArcadeViewController.swift in Sources */,
-				FEEC173A2EBA3E0100FD105A /* MahjongArcadeViewController+Setup.swift in Sources */,
-				FEEC173C2EBA3E0200FD105A /* MahjongArcadeViewController+GameLogic.swift in Sources */,
-				FEEC173E2EBA3E0300FD105A /* MahjongArcadeViewController+Actions.swift in Sources */,
-				FEEC17402EBA3E0400FD105A /* VestigeTileCell.swift in Sources */,
-				FEEC17422EBA3E0500FD105A /* ArchiveViewController.swift in Sources */,
-				FEEC17442EBA3E0600FD105A /* GuideViewController.swift in Sources */,
-				FEEC17462EBA3E0700FD105A /* UIDevice+Adaptation.swift in Sources */,
-				FEEC17482EBA3F0800FD105A /* InitialViewController.swift in Sources */,
+				FE3E731A2EC3662900B52821 /* GameMode.swift in Sources */,
+				FE3E731B2EC3662900B52821 /* TimeAttackViewController.swift in Sources */,
+				FE3E731C2EC3662900B52821 /* BaseViewController.swift in Sources */,
+				FE3E731D2EC3662900B52821 /* TimeAttackModeSelectViewController.swift in Sources */,
+				FE3E731E2EC3662900B52821 /* ArchiveViewController.swift in Sources */,
+				FE3E731F2EC3662900B52821 /* SceneDelegate.swift in Sources */,
+				FE3E73202EC3662900B52821 /* AppDelegate.swift in Sources */,
+				FE3E73212EC3662900B52821 /* GuideViewController.swift in Sources */,
+				FE3E73222EC3662900B52821 /* UIFactory.swift in Sources */,
+				FE3E73232EC3662900B52821 /* AnimationManager.swift in Sources */,
+				FE3E73242EC3662900B52821 /* GameManager.swift in Sources */,
+				FE3E73252EC3662900B52821 /* TimeAttackResultViewController.swift in Sources */,
+				FE3E73262EC3662900B52821 /* MahjongArcadeViewController+Actions.swift in Sources */,
+				FE3E73272EC3662900B52821 /* MahjongArcadeViewController.swift in Sources */,
+				FE3E73282EC3662900B52821 /* TripleDatas.swift in Sources */,
+				FE3E73292EC3662900B52821 /* MahjongArcadeViewController+Helpers.swift in Sources */,
+				FE3E732A2EC3662900B52821 /* InitialViewController.swift in Sources */,
+				FE3E732B2EC3662900B52821 /* UIDevice+Adaptation.swift in Sources */,
+				FE3E732C2EC3662900B52821 /* LayoutManager.swift in Sources */,
+				FE3E732D2EC3662900B52821 /* VestigeTileCell.swift in Sources */,
+				FE3E732E2EC3662900B52821 /* TimeAttackViewController+Delegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,14 +393,13 @@
 /* Begin XCBuildConfiguration section */
 		FEEC171E2EBA3B9D00FD105A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 629629DF4DB352A7AE5D7DBB /* Pods-Triple.debug.xcconfig */;
+			baseConfigurationReference = 20486D4AA7A3BB52A8EACB07 /* Pods-Triple.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -365,7 +416,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Triple.rowTrih;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -380,14 +431,13 @@
 		};
 		FEEC171F2EBA3B9D00FD105A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C3B92E41C2D7E4657420D8A /* Pods-Triple.release.xcconfig */;
+			baseConfigurationReference = 18555D33961E9C6C54714B1B /* Pods-Triple.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -404,7 +454,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Triple.rowTrih;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

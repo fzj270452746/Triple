@@ -2,152 +2,161 @@
 //  TripleDatas.swift
 //  Triple
 //
-//  Created by Zhao on 2025/11/4.
+//  重构后的数据模型
 //
 
 import Foundation
 import UIKit
 
-// MARK: - Enigmatic Tessellation Embodiment
-struct EnigmaticTessellationEmbodiment {
-    let iconographicRepresentation: UIImage
-    let numericalPotency: Int
-    let taxonomicClassification: TaxonomicDivision
-    let possessesEradicationCapability: Bool
-    let eradicationMethodology: AnnihilationTechnique?
+// MARK: - 麻将牌模型
+struct VestigeTileModel {
+    let vestigeImage: UIImage
+    let vestigeMagnitude: Int
+    let vestigeCategory: TileCategory
+    let isSpecialObliterator: Bool
+    let obliteratorType: ObliteratorType?
     
-    enum TaxonomicDivision: String {
-        case datong
-        case wanyi
-        case xiaotiao
-        case esoteric
+    enum TileCategory: String {
+        case datong, wanyi, xiaotiao, special
     }
     
-    enum AnnihilationTechnique {
-        case singularColumnPurge
-        case universalGridObliteration
+    enum ObliteratorType {
+        case obliterateSingle, obliterateAll
     }
     
-    init(iconographicRepresentation: UIImage, numericalPotency: Int, taxonomicClassification: TaxonomicDivision) {
-        self.iconographicRepresentation = iconographicRepresentation
-        self.numericalPotency = numericalPotency
-        self.taxonomicClassification = taxonomicClassification
-        self.possessesEradicationCapability = false
-        self.eradicationMethodology = nil
+    init(vestigeImage: UIImage, vestigeMagnitude: Int, vestigeCategory: TileCategory) {
+        self.vestigeImage = vestigeImage
+        self.vestigeMagnitude = vestigeMagnitude
+        self.vestigeCategory = vestigeCategory
+        self.isSpecialObliterator = false
+        self.obliteratorType = nil
     }
     
-    init(esotericIcon: UIImage, annihilationApproach: AnnihilationTechnique) {
-        self.iconographicRepresentation = esotericIcon
-        self.numericalPotency = 0
-        self.taxonomicClassification = .esoteric
-        self.possessesEradicationCapability = true
-        self.eradicationMethodology = annihilationApproach
+    init(specialImage: UIImage, obliteratorType: ObliteratorType) {
+        self.vestigeImage = specialImage
+        self.vestigeMagnitude = 0
+        self.vestigeCategory = .special
+        self.isSpecialObliterator = true
+        self.obliteratorType = obliteratorType
     }
-}
-
-// MARK: - Chronological Achievement Documentation
-struct ChronologicalAchievementDocumentation: Codable {
-    let accumulatedPoints: Int
-    let temporalMomentStamp: Date
-    let engagementTimespan: TimeInterval
-    let executionCadence: ExecutionCadence
     
-    enum ExecutionCadence: String, Codable {
-        case accelerated = "Fast"
-        case decelerated = "Slow"
+    /// 工厂方法 - 创建标准麻将牌
+    static func createTile(category: TileCategory, value: Int) -> VestigeTileModel {
+        let imageName = "\(category.rawValue) \(value)"
+        guard let image = UIImage(named: imageName) else {
+            fatalError("无法加载图片: \(imageName)")
+        }
+        return VestigeTileModel(vestigeImage: image, vestigeMagnitude: value, vestigeCategory: category)
+    }
+    
+    /// 批量创建某类麻将牌
+    static func createTiles(category: TileCategory, range: Range<Int>) -> [VestigeTileModel] {
+        return range.map { createTile(category: category, value: $0) }
     }
 }
 
-// MARK: - Tessellation Anthology Emporium
-class TessellationAnthologyEmporium {
-    static let singularInstance = TessellationAnthologyEmporium()
+// MARK: - Archive Model (Game Record)
+struct ArchiveRecordModel: Codable {
+    let archiveScore: Int
+    let archiveTimestamp: Date
+    let archiveDuration: TimeInterval
+    let archiveVelocity: GameVelocity
     
-    let datongCollectionArray: [EnigmaticTessellationEmbodiment]
-    let wanyiCollectionArray: [EnigmaticTessellationEmbodiment]
-    let xiaotiaoCollectionArray: [EnigmaticTessellationEmbodiment]
-    let amalgamatedCollectionRepository: [EnigmaticTessellationEmbodiment]
+    enum GameVelocity: String, Codable {
+        case brisk = "Fast"
+        case sluggish = "Slow"
+    }
+}
+
+// MARK: - 麻将牌仓库
+class VestigeRepository {
+    static let sharedDepot = VestigeRepository()
+    
+    private let tilesByCategory: [VestigeTileModel.TileCategory: [VestigeTileModel]]
+    let aggregatedVestiges: [VestigeTileModel]
+    
+    private let specialTileProbability: (single: Int, all: Int) = (5, 8)
     
     init() {
-        datongCollectionArray = (1...9).map { index in
-            EnigmaticTessellationEmbodiment(
-                iconographicRepresentation: UIImage(named: "datong \(index)")!,
-                numericalPotency: index,
-                taxonomicClassification: .datong
-            )
+        // 使用工厂方法批量创建麻将牌
+        let categories: [VestigeTileModel.TileCategory] = [.datong, .wanyi, .xiaotiao]
+        var tilesDict: [VestigeTileModel.TileCategory: [VestigeTileModel]] = [:]
+        
+        for category in categories {
+            tilesDict[category] = VestigeTileModel.createTiles(category: category, range: 1..<10)
         }
         
-        wanyiCollectionArray = (1...9).map { index in
-            EnigmaticTessellationEmbodiment(
-                iconographicRepresentation: UIImage(named: "wanyi \(index)")!,
-                numericalPotency: index,
-                taxonomicClassification: .wanyi
-            )
-        }
-        
-        xiaotiaoCollectionArray = (1...9).map { index in
-            EnigmaticTessellationEmbodiment(
-                iconographicRepresentation: UIImage(named: "xiaotiao \(index)")!,
-                numericalPotency: index,
-                taxonomicClassification: .xiaotiao
-            )
-        }
-        
-        amalgamatedCollectionRepository = datongCollectionArray + wanyiCollectionArray + xiaotiaoCollectionArray
+        self.tilesByCategory = tilesDict
+        self.aggregatedVestiges = categories.flatMap { tilesDict[$0] ?? [] }
     }
     
-    func procureArbitraryTessellation() -> EnigmaticTessellationEmbodiment {
-        let stochasticValue = Int.random(in: 1...100)
+    /// 获取特定类别的麻将牌
+    func getTiles(for category: VestigeTileModel.TileCategory) -> [VestigeTileModel] {
+        return tilesByCategory[category] ?? []
+    }
+    
+    /// 随机获取一张麻将牌（可能包含特殊牌）
+    func fetchArbitraryVestige() -> VestigeTileModel {
+        let randomValue = Int.random(in: 1...100)
         
-        if stochasticValue <= 5 {
-            return EnigmaticTessellationEmbodiment(
-                esotericIcon: UIImage(named: "deleteOne")!,
-                annihilationApproach: .singularColumnPurge
-            )
-        } else if stochasticValue <= 8 {
-            return EnigmaticTessellationEmbodiment(
-                esotericIcon: UIImage(named: "deleteAll")!,
-                annihilationApproach: .universalGridObliteration
-            )
+        if randomValue <= specialTileProbability.single {
+            return createSpecialTile(type: .obliterateSingle, imageName: "deleteOne")
+        } else if randomValue <= specialTileProbability.all {
+            return createSpecialTile(type: .obliterateAll, imageName: "deleteAll")
         } else {
-            return amalgamatedCollectionRepository.randomElement()!
+            return aggregatedVestiges.randomElement()!
         }
+    }
+    
+    private func createSpecialTile(type: VestigeTileModel.ObliteratorType, imageName: String) -> VestigeTileModel {
+        guard let image = UIImage(named: imageName) else {
+            fatalError("无法加载特殊牌图片: \(imageName)")
+        }
+        return VestigeTileModel(specialImage: image, obliteratorType: type)
     }
 }
 
-// MARK: - Chronological Achievement Conservatory
-class ChronologicalAchievementConservatory {
-    static let singularCurator = ChronologicalAchievementConservatory()
-    private let permanentStorageIdentifier = "MahjongArchiveRecords"
+// MARK: - 游戏记录持久化
+class ArchivePersistence {
+    static let sharedCurator = ArchivePersistence()
+    private let archiveKey = "MahjongArchiveRecords"
+    private let encoder = JSONEncoder()
+    private let decoder = JSONDecoder()
     
-    func perpetuateAchievement(_ documentation: ChronologicalAchievementDocumentation) {
-        var existingDocumentations = retrievePerpetuatedAchievements()
-        existingDocumentations.append(documentation)
-        existingDocumentations.sort { $0.accumulatedPoints > $1.accumulatedPoints }
-        
-        if let serializedData = try? JSONEncoder().encode(existingDocumentations) {
-            UserDefaults.standard.set(serializedData, forKey: permanentStorageIdentifier)
-        }
+    /// 保存游戏记录
+    func conserveArchive(_ archive: ArchiveRecordModel) {
+        var archives = retrieveArchives()
+        archives.append(archive)
+        archives.sort { $0.archiveScore > $1.archiveScore }
+        saveArchives(archives)
     }
     
-    func retrievePerpetuatedAchievements() -> [ChronologicalAchievementDocumentation] {
-        guard let persistedData = UserDefaults.standard.data(forKey: permanentStorageIdentifier),
-              let decodedDocumentations = try? JSONDecoder().decode([ChronologicalAchievementDocumentation].self, from: persistedData) else {
+    /// 获取所有游戏记录
+    func retrieveArchives() -> [ArchiveRecordModel] {
+        guard let data = UserDefaults.standard.data(forKey: archiveKey),
+              let archives = try? decoder.decode([ArchiveRecordModel].self, from: data) else {
             return []
         }
-        return decodedDocumentations
+        return archives
     }
     
-    func eradicateSpecificAchievement(at indexPosition: Int) {
-        var existingDocumentations = retrievePerpetuatedAchievements()
-        guard indexPosition < existingDocumentations.count else { return }
-        existingDocumentations.remove(at: indexPosition)
-        
-        if let serializedData = try? JSONEncoder().encode(existingDocumentations) {
-            UserDefaults.standard.set(serializedData, forKey: permanentStorageIdentifier)
-        }
+    /// 删除指定位置的记录
+    func obliterateArchive(at index: Int) {
+        var archives = retrieveArchives()
+        guard index < archives.count else { return }
+        archives.remove(at: index)
+        saveArchives(archives)
     }
     
-    func annihilateAllPerpetuatedAchievements() {
-        UserDefaults.standard.removeObject(forKey: permanentStorageIdentifier)
+    /// 删除所有记录
+    func obliterateAllArchives() {
+        UserDefaults.standard.removeObject(forKey: archiveKey)
+    }
+    
+    /// 私有方法 - 保存记录数组
+    private func saveArchives(_ archives: [ArchiveRecordModel]) {
+        guard let data = try? encoder.encode(archives) else { return }
+        UserDefaults.standard.set(data, forKey: archiveKey)
     }
 }
+

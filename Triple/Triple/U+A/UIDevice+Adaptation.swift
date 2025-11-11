@@ -8,31 +8,31 @@
 import UIKit
 
 extension UIDevice {
-    static var isPadlockApparatus: Bool {
+    static var isIPadDevice: Bool {
         return UIDevice.current.userInterfaceIdiom == .pad
     }
     
-    static var isHandheldGadget: Bool {
+    static var isIPhoneDevice: Bool {
         return UIDevice.current.userInterfaceIdiom == .phone
     }
 }
 
 extension UIScreen {
-    static var isDiminutiveViewport: Bool {
+    static var isCompactScreen: Bool {
         return UIScreen.main.bounds.height < 700
     }
     
-    static var isIntermediateViewport: Bool {
+    static var isMediumScreen: Bool {
         return UIScreen.main.bounds.height >= 700 && UIScreen.main.bounds.height < 900
     }
     
-    static var isExpansiveViewport: Bool {
+    static var isLargeScreen: Bool {
         return UIScreen.main.bounds.height >= 900
     }
 }
 
 extension UIViewController {
-    var isHorizontallyPostured: Bool {
+    var isLandscapeOrientation: Bool {
         if #available(iOS 13.0, *) {
             return view.window?.windowScene?.interfaceOrientation.isLandscape ?? false
         } else {
@@ -40,7 +40,7 @@ extension UIViewController {
         }
     }
     
-    var isVerticallyPostured: Bool {
+    var isPortraitOrientation: Bool {
         if #available(iOS 13.0, *) {
             return view.window?.windowScene?.interfaceOrientation.isPortrait ?? true
         } else {
@@ -49,48 +49,49 @@ extension UIViewController {
     }
 }
 
-// MARK: - Responsive Geometry Calibrator
-class ResponsiveGeometryCalibrator {
+// MARK: - Adaptive Layout Helper
+class AdaptiveLayoutHelper {
     
-    static func computeTessellationDimension() -> CGFloat {
-        if UIDevice.isPadlockApparatus {
+    static func calculateTileSize() -> CGFloat {
+        if UIDevice.isIPadDevice {
             return 90
-        } else if UIScreen.isDiminutiveViewport {
+        } else if UIScreen.isCompactScreen {
             return 60
-        } else if UIScreen.isIntermediateViewport {
+        } else if UIScreen.isMediumScreen {
             return 70
         } else {
             return 80
         }
     }
     
-    static func computeTypographicMagnitude(foundationSize: CGFloat) -> CGFloat {
-        if UIDevice.isPadlockApparatus {
-            return foundationSize * 1.3
-        } else if UIScreen.isDiminutiveViewport {
-            return foundationSize * 0.85
+    static func calculateFontSize(base: CGFloat) -> CGFloat {
+        if UIDevice.isIPadDevice {
+            return base * 1.3
+        } else if UIScreen.isCompactScreen {
+            return base * 0.85
         } else {
-            return foundationSize
+            return base
         }
     }
     
-    static func computeInterstitialGap(foundationGap: CGFloat) -> CGFloat {
-        if UIDevice.isPadlockApparatus {
-            return foundationGap * 1.5
-        } else if UIScreen.isDiminutiveViewport {
-            return foundationGap * 0.7
+    static func calculateSpacing(base: CGFloat) -> CGFloat {
+        if UIDevice.isIPadDevice {
+            return base * 1.5
+        } else if UIScreen.isCompactScreen {
+            return base * 0.7
         } else {
-            return foundationGap
+            return base
         }
     }
     
-    static func computeInteractiveElementDimension(foundationDimension: CGFloat) -> CGFloat {
-        if UIDevice.isPadlockApparatus {
-            return foundationDimension * 1.3
-        } else if UIScreen.isDiminutiveViewport {
-            return foundationDimension * 0.85
+    static func calculateButtonSize(base: CGFloat) -> CGFloat {
+        if UIDevice.isIPadDevice {
+            return base * 1.3
+        } else if UIScreen.isCompactScreen {
+            return base * 0.85
         } else {
-            return foundationDimension
+            return base
         }
     }
 }
+

@@ -2,212 +2,154 @@
 //  ArchiveViewController.swift
 //  Triple
 //
-//  Created by Zhao on 2025/11/4.
+//  重构后的游戏记录控制器
 //
 
 import UIKit
 
-class ChronologicalAchievementRepositoryController: UIViewController {
+class ArchiveViewController: BaseViewController {
     
-    var perpetuatedAchievementDocumentations: [ChronologicalAchievementDocumentation] = []
+    // MARK: - 属性
+    private var archiveRecords: [ArchiveRecordModel] = []
     
-    let etherealBackdropImagery: UIImageView = {
-        let imageryView = UIImageView()
-        imageryView.image = UIImage(named: "tripleImage")
-        imageryView.contentMode = .scaleAspectFill
-        imageryView.translatesAutoresizingMaskIntoConstraints = false
-        return imageryView
+    // MARK: - UI组件
+    private lazy var titleLabel: UILabel = {
+        let config = LabelConfig(
+            text: "Game Records",
+            fontSize: 32,
+            weight: .bold,
+            hasShadow: true,
+            shadowConfig: ShadowConfig(offset: CGSize(width: 0, height: 3), opacity: 0.9, radius: 5)
+        )
+        return UIFactory.createLabel(config: config)
     }()
     
-    let obscuringTintedVeil: UIView = {
-        let veilView = UIView()
-        veilView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        veilView.translatesAutoresizingMaskIntoConstraints = false
-        return veilView
+    private lazy var recordsTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        tableView.backgroundColor = .clear
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(ArchiveRecordCell.self, forCellReuseIdentifier: "ArchiveRecordCell")
+        return tableView
     }()
     
-    let repositoryHeadlineInscription: UILabel = {
-        let inscriptionLabel = UILabel()
-        inscriptionLabel.text = "Game Records"
-        inscriptionLabel.font = UIFont.boldSystemFont(ofSize: 32)
-        inscriptionLabel.textColor = .white
-        inscriptionLabel.textAlignment = .center
-        inscriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        inscriptionLabel.layer.shadowColor = UIColor.black.cgColor
-        inscriptionLabel.layer.shadowOffset = CGSize(width: 0, height: 3)
-        inscriptionLabel.layer.shadowOpacity = 0.9
-        inscriptionLabel.layer.shadowRadius = 5
-        return inscriptionLabel
+    private lazy var emptyStateLabel: UILabel = {
+        let config = LabelConfig(
+            text: "No game records yet.\nStart playing to create records!",
+            fontSize: 18,
+            weight: .medium,
+            numberOfLines: 0,
+            hasShadow: true,
+            shadowConfig: ShadowConfig(offset: CGSize(width: 0, height: 2), opacity: 0.8, radius: 4)
+        )
+        let label = UIFactory.createLabel(config: config)
+        label.isHidden = true
+        return label
     }()
     
-    let documentationsVisualizationTable: UITableView = {
-        let visualizationTable = UITableView(frame: .zero, style: .insetGrouped)
-        visualizationTable.backgroundColor = .clear
-        visualizationTable.translatesAutoresizingMaskIntoConstraints = false
-        visualizationTable.separatorStyle = .none
-        return visualizationTable
+    private lazy var obliterateAllButton: UIButton = {
+        let config = ButtonConfig(
+            title: "🗑 Delete All",
+            fontSize: 18,
+            titleColor: .white,
+            backgroundColor: UIColor.red.withAlphaComponent(0.7),
+            cornerRadius: 25,
+            hasShadow: true,
+            shadowConfig: ShadowConfig(offset: CGSize(width: 0, height: 3), opacity: 0.6, radius: 4)
+        )
+        let button = UIFactory.createButton(config: config)
+        button.addTarget(self, action: #selector(obliterateAllTapped), for: .touchUpInside)
+        return button
     }()
     
-    let vacuityStateInscription: UILabel = {
-        let inscriptionLabel = UILabel()
-        inscriptionLabel.text = "No game records yet.\nStart playing to create records!"
-        inscriptionLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        inscriptionLabel.textColor = .white
-        inscriptionLabel.textAlignment = .center
-        inscriptionLabel.numberOfLines = 0
-        inscriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        inscriptionLabel.layer.shadowColor = UIColor.black.cgColor
-        inscriptionLabel.layer.shadowOffset = CGSize(width: 0, height: 2)
-        inscriptionLabel.layer.shadowOpacity = 0.8
-        inscriptionLabel.layer.shadowRadius = 4
-        inscriptionLabel.isHidden = true
-        return inscriptionLabel
-    }()
-    
-    let universalEradicationActuator: UIButton = {
-        let actuatorButton = UIButton(type: .system)
-        actuatorButton.setTitle("🗑 Delete All", for: .normal)
-        actuatorButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        actuatorButton.setTitleColor(.white, for: .normal)
-        actuatorButton.backgroundColor = UIColor.red.withAlphaComponent(0.7)
-        actuatorButton.layer.cornerRadius = 25
-        actuatorButton.translatesAutoresizingMaskIntoConstraints = false
-        actuatorButton.layer.shadowColor = UIColor.black.cgColor
-        actuatorButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-        actuatorButton.layer.shadowOpacity = 0.6
-        actuatorButton.layer.shadowRadius = 4
-        return actuatorButton
-    }()
-    
-    let regressionNavigationTrigger: UIButton = {
-        let triggerButton = UIButton(type: .system)
-        triggerButton.setTitle("← Back", for: .normal)
-        triggerButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        triggerButton.setTitleColor(.white, for: .normal)
-        triggerButton.backgroundColor = UIColor(red: 0.3, green: 0.4, blue: 0.6, alpha: 0.8)
-        triggerButton.layer.cornerRadius = 20
-        triggerButton.translatesAutoresizingMaskIntoConstraints = false
-        triggerButton.layer.shadowColor = UIColor.black.cgColor
-        triggerButton.layer.shadowOffset = CGSize(width: 0, height: 2)
-        triggerButton.layer.shadowOpacity = 0.6
-        triggerButton.layer.shadowRadius = 3
-        return triggerButton
-    }()
-    
+    // MARK: - 生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
-        orchestrateVisualizationHierarchy()
-        retrievePerpetuatedDocumentations()
+        showsBackButton = true
+        setupUI()
+        setupConstraints()
+        retrieveArchives()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        retrievePerpetuatedDocumentations()
+        retrieveArchives()
     }
     
-    func orchestrateVisualizationHierarchy() {
-        view.addSubview(etherealBackdropImagery)
-        view.addSubview(obscuringTintedVeil)
-        view.addSubview(repositoryHeadlineInscription)
-        view.addSubview(documentationsVisualizationTable)
-        view.addSubview(vacuityStateInscription)
-        view.addSubview(universalEradicationActuator)
-        view.addSubview(regressionNavigationTrigger)
+    // MARK: - UI设置
+    private func setupUI() {
+        [titleLabel, recordsTableView, emptyStateLabel, obliterateAllButton].forEach { view.addSubview($0) }
         
-        documentationsVisualizationTable.delegate = self
-        documentationsVisualizationTable.dataSource = self
-        documentationsVisualizationTable.register(ChronologicalAchievementDocumentationCapsule.self, forCellReuseIdentifier: "ChronologicalAchievementDocumentationCapsule")
-        
-        universalEradicationActuator.addTarget(self, action: #selector(executeUniversalEradication), for: .touchUpInside)
-        regressionNavigationTrigger.addTarget(self, action: #selector(executeRegressionNavigation), for: .touchUpInside)
-        
-        establishGeometricConstraints()
+        // 确保返回按钮在最上层
+        if showsBackButton {
+            view.bringSubviewToFront(backButton)
+        }
     }
     
-    func establishGeometricConstraints() {
-        let protectedRegion = view.safeAreaLayoutGuide
+    private func setupConstraints() {
+        let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            etherealBackdropImagery.topAnchor.constraint(equalTo: view.topAnchor),
-            etherealBackdropImagery.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            etherealBackdropImagery.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            etherealBackdropImagery.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            titleLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 60),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            obscuringTintedVeil.topAnchor.constraint(equalTo: view.topAnchor),
-            obscuringTintedVeil.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            obscuringTintedVeil.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            obscuringTintedVeil.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            recordsTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            recordsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            recordsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recordsTableView.bottomAnchor.constraint(equalTo: obliterateAllButton.topAnchor, constant: -20),
             
-            regressionNavigationTrigger.topAnchor.constraint(equalTo: protectedRegion.topAnchor, constant: 10),
-            regressionNavigationTrigger.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            regressionNavigationTrigger.widthAnchor.constraint(equalToConstant: 100),
-            regressionNavigationTrigger.heightAnchor.constraint(equalToConstant: 40),
-            
-            repositoryHeadlineInscription.topAnchor.constraint(equalTo: regressionNavigationTrigger.bottomAnchor, constant: 20),
-            repositoryHeadlineInscription.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            documentationsVisualizationTable.topAnchor.constraint(equalTo: repositoryHeadlineInscription.bottomAnchor, constant: 20),
-            documentationsVisualizationTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            documentationsVisualizationTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            documentationsVisualizationTable.bottomAnchor.constraint(equalTo: universalEradicationActuator.topAnchor, constant: -20),
-            
-            vacuityStateInscription.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            vacuityStateInscription.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            vacuityStateInscription.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            vacuityStateInscription.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            
-            universalEradicationActuator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            universalEradicationActuator.bottomAnchor.constraint(equalTo: protectedRegion.bottomAnchor, constant: -20),
-            universalEradicationActuator.widthAnchor.constraint(equalToConstant: 180),
-            universalEradicationActuator.heightAnchor.constraint(equalToConstant: 50)
+            obliterateAllButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            obliterateAllButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -20)
+        ])
+        
+        LayoutManager.setSize(obliterateAllButton, width: 180, height: 50)
+        LayoutManager.centerInSuperview(emptyStateLabel, in: view)
+        
+        NSLayoutConstraint.activate([
+            emptyStateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            emptyStateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
         ])
     }
     
-    func retrievePerpetuatedDocumentations() {
-        perpetuatedAchievementDocumentations = ChronologicalAchievementConservatory.singularCurator.retrievePerpetuatedAchievements()
-        documentationsVisualizationTable.reloadData()
-        refreshVacuityStateVisibility()
+    // MARK: - 数据操作
+    private func retrieveArchives() {
+        archiveRecords = ArchivePersistence.sharedCurator.retrieveArchives()
+        recordsTableView.reloadData()
+        updateEmptyState()
     }
     
-    func refreshVacuityStateVisibility() {
-        vacuityStateInscription.isHidden = !perpetuatedAchievementDocumentations.isEmpty
-        universalEradicationActuator.isHidden = perpetuatedAchievementDocumentations.isEmpty
+    private func updateEmptyState() {
+        let isEmpty = archiveRecords.isEmpty
+        emptyStateLabel.isHidden = !isEmpty
+        obliterateAllButton.isHidden = isEmpty
     }
     
-    @objc func executeUniversalEradication() {
-        let modalAlert = UIAlertController(title: "Delete All Records?", message: "This action cannot be undone.", preferredStyle: .alert)
-        
-        let confirmationOption = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
-            ChronologicalAchievementConservatory.singularCurator.annihilateAllPerpetuatedAchievements()
-            self?.retrievePerpetuatedDocumentations()
+    @objc private func obliterateAllTapped() {
+        let confirmAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            ArchivePersistence.sharedCurator.obliterateAllArchives()
+            self?.retrieveArchives()
         }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
-        let cancellationOption = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        modalAlert.addAction(confirmationOption)
-        modalAlert.addAction(cancellationOption)
-        
-        present(modalAlert, animated: true)
-    }
-    
-    @objc func executeRegressionNavigation() {
-        navigationController?.popViewController(animated: true)
+        showAlert(title: "Delete All Records?", message: "This action cannot be undone.", 
+                 actions: [confirmAction, cancelAction])
     }
 }
 
-// MARK: - TableView Delegation & Data Provisioning
-extension ChronologicalAchievementRepositoryController: UITableViewDataSource, UITableViewDelegate {
+// MARK: - TableView DataSource & Delegate
+extension ArchiveViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return perpetuatedAchievementDocumentations.count
+        return archiveRecords.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let capsule = tableView.dequeueReusableCell(withIdentifier: "ChronologicalAchievementDocumentationCapsule", for: indexPath) as! ChronologicalAchievementDocumentationCapsule
-        let documentation = perpetuatedAchievementDocumentations[indexPath.row]
-        capsule.configureCapsuleWithDocumentation(documentation, hierarchicalRank: indexPath.row + 1)
-        return capsule
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ArchiveRecordCell", for: indexPath) as! ArchiveRecordCell
+        let record = archiveRecords[indexPath.row]
+        cell.configureWithRecord(record, rank: indexPath.row + 1)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -216,8 +158,8 @@ extension ChronologicalAchievementRepositoryController: UITableViewDataSource, U
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            ChronologicalAchievementConservatory.singularCurator.eradicateSpecificAchievement(at: indexPath.row)
-            retrievePerpetuatedDocumentations()
+            ArchivePersistence.sharedCurator.obliterateArchive(at: indexPath.row)
+            retrieveArchives()
         }
     }
     
@@ -226,129 +168,134 @@ extension ChronologicalAchievementRepositoryController: UITableViewDataSource, U
     }
 }
 
-// MARK: - Chronological Achievement Documentation Capsule
-class ChronologicalAchievementDocumentationCapsule: UITableViewCell {
+// MARK: - 游戏记录单元格
+class ArchiveRecordCell: UITableViewCell {
     
-    let encapsulationContainer: UIView = {
-        let containerView = UIView()
-        containerView.backgroundColor = UIColor.white.withAlphaComponent(0.15)
-        containerView.layer.cornerRadius = 15
-        containerView.layer.borderWidth = 2
-        containerView.layer.borderColor = UIColor.white.withAlphaComponent(0.3).cgColor
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        return containerView
+    private lazy var containerView: UIView = {
+        let config = ContainerConfig(
+            backgroundColor: UIColor.white.withAlphaComponent(0.15),
+            cornerRadius: 15,
+            borderWidth: 2,
+            borderColor: UIColor.white.withAlphaComponent(0.3)
+        )
+        return UIFactory.createContainerView(config: config)
     }()
     
-    let hierarchicalRankInscription: UILabel = {
-        let inscriptionLabel = UILabel()
-        inscriptionLabel.font = UIFont.boldSystemFont(ofSize: 40)
-        inscriptionLabel.textColor = UIColor(red: 1.0, green: 0.84, blue: 0.0, alpha: 1.0)
-        inscriptionLabel.textAlignment = .center
-        inscriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        inscriptionLabel.layer.shadowColor = UIColor.black.cgColor
-        inscriptionLabel.layer.shadowOffset = CGSize(width: 0, height: 2)
-        inscriptionLabel.layer.shadowOpacity = 0.8
-        inscriptionLabel.layer.shadowRadius = 3
-        return inscriptionLabel
+    private lazy var rankLabel: UILabel = {
+        let config = LabelConfig(
+            fontSize: 40,
+            weight: .bold,
+            color: UIColor(red: 1.0, green: 0.84, blue: 0.0, alpha: 1.0),
+            hasShadow: true,
+            shadowConfig: ShadowConfig(offset: CGSize(width: 0, height: 2), opacity: 0.8, radius: 3)
+        )
+        return UIFactory.createLabel(config: config)
     }()
     
-    let scoringTallyInscription: UILabel = {
-        let inscriptionLabel = UILabel()
-        inscriptionLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        inscriptionLabel.textColor = .white
-        inscriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        return inscriptionLabel
+    private lazy var scoreLabel: UILabel = {
+        let config = LabelConfig(fontSize: 24, weight: .bold, alignment: .left)
+        return UIFactory.createLabel(config: config)
     }()
     
-    let executionCadenceInscription: UILabel = {
-        let inscriptionLabel = UILabel()
-        inscriptionLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        inscriptionLabel.textColor = UIColor.white.withAlphaComponent(0.9)
-        inscriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        return inscriptionLabel
+    private lazy var velocityLabel: UILabel = {
+        let config = LabelConfig(
+            fontSize: 16,
+            weight: .medium,
+            color: UIColor.white.withAlphaComponent(0.9),
+            alignment: .left
+        )
+        return UIFactory.createLabel(config: config)
     }()
     
-    let engagementTimespanInscription: UILabel = {
-        let inscriptionLabel = UILabel()
-        inscriptionLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        inscriptionLabel.textColor = UIColor.white.withAlphaComponent(0.9)
-        inscriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        return inscriptionLabel
+    private lazy var durationLabel: UILabel = {
+        let config = LabelConfig(
+            fontSize: 16,
+            weight: .medium,
+            color: UIColor.white.withAlphaComponent(0.9),
+            alignment: .left
+        )
+        return UIFactory.createLabel(config: config)
     }()
     
-    let temporalMomentInscription: UILabel = {
-        let inscriptionLabel = UILabel()
-        inscriptionLabel.font = UIFont.systemFont(ofSize: 14)
-        inscriptionLabel.textColor = UIColor.white.withAlphaComponent(0.7)
-        inscriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        return inscriptionLabel
+    private lazy var timestampLabel: UILabel = {
+        let config = LabelConfig(
+            fontSize: 14,
+            weight: .regular,
+            color: UIColor.white.withAlphaComponent(0.7),
+            alignment: .right
+        )
+        return UIFactory.createLabel(config: config)
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        orchestrateCapsuleArchitecture()
+        setupCell()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func orchestrateCapsuleArchitecture() {
+    private func setupCell() {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         selectionStyle = .none
         
-        contentView.addSubview(encapsulationContainer)
-        encapsulationContainer.addSubview(hierarchicalRankInscription)
-        encapsulationContainer.addSubview(scoringTallyInscription)
-        encapsulationContainer.addSubview(executionCadenceInscription)
-        encapsulationContainer.addSubview(engagementTimespanInscription)
-        encapsulationContainer.addSubview(temporalMomentInscription)
+        contentView.addSubview(containerView)
+        [rankLabel, scoreLabel, velocityLabel, durationLabel, timestampLabel].forEach {
+            containerView.addSubview($0)
+        }
+        
+        LayoutManager.applyEdgeInsets(containerView, in: contentView, insets: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
+        LayoutManager.setSize(rankLabel, width: 60)
         
         NSLayoutConstraint.activate([
-            encapsulationContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            encapsulationContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            encapsulationContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            encapsulationContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            rankLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
+            rankLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             
-            hierarchicalRankInscription.leadingAnchor.constraint(equalTo: encapsulationContainer.leadingAnchor, constant: 15),
-            hierarchicalRankInscription.centerYAnchor.constraint(equalTo: encapsulationContainer.centerYAnchor),
-            hierarchicalRankInscription.widthAnchor.constraint(equalToConstant: 60),
+            scoreLabel.leadingAnchor.constraint(equalTo: rankLabel.trailingAnchor, constant: 15),
+            scoreLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12),
             
-            scoringTallyInscription.leadingAnchor.constraint(equalTo: hierarchicalRankInscription.trailingAnchor, constant: 15),
-            scoringTallyInscription.topAnchor.constraint(equalTo: encapsulationContainer.topAnchor, constant: 12),
+            velocityLabel.leadingAnchor.constraint(equalTo: scoreLabel.leadingAnchor),
+            velocityLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: 5),
             
-            executionCadenceInscription.leadingAnchor.constraint(equalTo: hierarchicalRankInscription.trailingAnchor, constant: 15),
-            executionCadenceInscription.topAnchor.constraint(equalTo: scoringTallyInscription.bottomAnchor, constant: 5),
+            durationLabel.leadingAnchor.constraint(equalTo: scoreLabel.leadingAnchor),
+            durationLabel.topAnchor.constraint(equalTo: velocityLabel.bottomAnchor, constant: 5),
             
-            engagementTimespanInscription.leadingAnchor.constraint(equalTo: hierarchicalRankInscription.trailingAnchor, constant: 15),
-            engagementTimespanInscription.topAnchor.constraint(equalTo: executionCadenceInscription.bottomAnchor, constant: 5),
-            
-            temporalMomentInscription.trailingAnchor.constraint(equalTo: encapsulationContainer.trailingAnchor, constant: -15),
-            temporalMomentInscription.bottomAnchor.constraint(equalTo: encapsulationContainer.bottomAnchor, constant: -12)
+            timestampLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
+            timestampLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12)
         ])
     }
     
-    func configureCapsuleWithDocumentation(_ documentation: ChronologicalAchievementDocumentation, hierarchicalRank: Int) {
-        hierarchicalRankInscription.text = "\(hierarchicalRank)"
-        scoringTallyInscription.text = "Score: \(documentation.accumulatedPoints)"
-        executionCadenceInscription.text = "Speed: \(documentation.executionCadence.rawValue)"
-        
-        let minutes = Int(documentation.engagementTimespan) / 60
-        let seconds = Int(documentation.engagementTimespan) % 60
-        engagementTimespanInscription.text = "Duration: \(minutes)m \(seconds)s"
-        
-        let temporalFormatter = DateFormatter()
-        temporalFormatter.dateStyle = .short
-        temporalFormatter.timeStyle = .short
-        temporalMomentInscription.text = temporalFormatter.string(from: documentation.temporalMomentStamp)
-        
-        if hierarchicalRank <= 3 {
-            hierarchicalRankInscription.textColor = hierarchicalRank == 1 ? UIColor(red: 1.0, green: 0.84, blue: 0.0, alpha: 1.0) :
-                                  hierarchicalRank == 2 ? UIColor(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.0) :
-                                  UIColor(red: 0.80, green: 0.50, blue: 0.20, alpha: 1.0)
-        } else {
-            hierarchicalRankInscription.textColor = .white
+    func configureWithRecord(_ record: ArchiveRecordModel, rank: Int) {
+        rankLabel.text = "\(rank)"
+        scoreLabel.text = "Score: \(record.archiveScore)"
+        velocityLabel.text = "Speed: \(record.archiveVelocity.rawValue)"
+        durationLabel.text = formatDuration(record.archiveDuration)
+        timestampLabel.text = formatDate(record.archiveTimestamp)
+        rankLabel.textColor = getRankColor(for: rank)
+    }
+    
+    private func formatDuration(_ duration: TimeInterval) -> String {
+        let minutes = Int(duration) / 60
+        let seconds = Int(duration) % 60
+        return "Duration: \(minutes)m \(seconds)s"
+    }
+    
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
+    
+    private func getRankColor(for rank: Int) -> UIColor {
+        switch rank {
+        case 1: return UIColor(red: 1.0, green: 0.84, blue: 0.0, alpha: 1.0)  // 金色
+        case 2: return UIColor(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.0) // 银色
+        case 3: return UIColor(red: 0.80, green: 0.50, blue: 0.20, alpha: 1.0) // 铜色
+        default: return .white
         }
     }
 }
+

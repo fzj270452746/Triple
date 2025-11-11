@@ -2,115 +2,140 @@
 //  MahjongArcadeViewController.swift
 //  Triple
 //
-//  Created by Zhao on 2025/11/4.
+//  重构后的游戏控制器
 //
 
 import UIKit
 
-class MysticalTessellationOrchestrationController: UIViewController {
+class MahjongArcadeViewController: BaseViewController {
     
-    // MARK: - Properties
-    var tessellationAnthology = TessellationAnthologyEmporium.singularInstance
-    var activeExecutionCadence: ChronologicalAchievementDocumentation.ExecutionCadence = .decelerated
-    var accumulatedScoringTally: Int = 0
-    var ceremonyInaugurationMoment: Date?
-    var isCeremonyProgressing = false
+    // MARK: - 属性
+    let gameManager = GameManager()
+    var columnViews: [UITableView] = []
+    var columnBackgroundViews: [UIView] = []
+    var shouldDisplayMagnitudes: Bool = false
     
-    var verticalTessellationCascades: [[EnigmaticTessellationEmbodiment]] = [[], [], []]
-    var cascadeVisualizationTables: [UITableView] = []
-    var cascadeBackgroundContainments: [UIView] = []
-    var autonomousPropulsionChronometers: [Timer?] = [nil, nil, nil]
-    var shouldExhibitNumericalPotencies: Bool = false
-    
-    let cascadeChromatics: [UIColor] = [
+    let columnHues: [UIColor] = [
         UIColor(red: 0.2, green: 0.4, blue: 0.8, alpha: 0.3),
         UIColor(red: 0.8, green: 0.3, blue: 0.4, alpha: 0.3),
         UIColor(red: 0.3, green: 0.7, blue: 0.5, alpha: 0.3)
     ]
     
-    // MARK: - UI Components
-    let etherealBackdropImagery: UIImageView = {
-        let imageryView = UIImageView()
-        imageryView.image = UIImage(named: "tripleImage")
-        imageryView.contentMode = .scaleAspectFill
-        imageryView.translatesAutoresizingMaskIntoConstraints = false
-        return imageryView
+    // MARK: - UI组件
+    lazy var scoreLabel: UILabel = {
+        let config = LabelConfig(
+            text: "Score: 0",
+            fontSize: 28,
+            weight: .bold,
+            hasShadow: true,
+            shadowConfig: ShadowConfig(offset: CGSize(width: 0, height: 2), opacity: 0.8, radius: 4)
+        )
+        return UIFactory.createLabel(config: config)
     }()
     
-    let obscuringTintedVeil: UIView = {
-        let veilView = UIView()
-        veilView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        veilView.translatesAutoresizingMaskIntoConstraints = false
-        return veilView
+    lazy var toggleMagnitudeButton: UIButton = {
+        let config = ButtonConfig(
+            title: "👁 Show Numbers",
+            fontSize: 16,
+            titleColor: .white,
+            backgroundColor: UIColor(red: 0.6, green: 0.4, blue: 0.8, alpha: 0.85),
+            cornerRadius: 22,
+            hasShadow: true,
+            shadowConfig: ShadowConfig(offset: CGSize(width: 0, height: 3), opacity: 0.6, radius: 4)
+        )
+        let button = UIFactory.createButton(config: config)
+        button.addTarget(self, action: #selector(toggleMagnitudeDisplayTapped), for: .touchUpInside)
+        return button
     }()
     
-    let scoringTallyInscription: UILabel = {
-        let inscriptionLabel = UILabel()
-        inscriptionLabel.text = "Score: 0"
-        inscriptionLabel.font = UIFont.boldSystemFont(ofSize: 28)
-        inscriptionLabel.textColor = .white
-        inscriptionLabel.textAlignment = .center
-        inscriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        inscriptionLabel.layer.shadowColor = UIColor.black.cgColor
-        inscriptionLabel.layer.shadowOffset = CGSize(width: 0, height: 2)
-        inscriptionLabel.layer.shadowOpacity = 0.8
-        inscriptionLabel.layer.shadowRadius = 4
-        return inscriptionLabel
+    lazy var columnsStackView: UIStackView = {
+        return UIFactory.createStackView(axis: .horizontal, spacing: 12, distribution: .fillEqually)
     }()
     
-    let potencyVisibilityToggleActuator: UIButton = {
-        let actuatorButton = UIButton(type: .system)
-        actuatorButton.setTitle("👁 Show Numbers", for: .normal)
-        actuatorButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        actuatorButton.setTitleColor(.white, for: .normal)
-        actuatorButton.backgroundColor = UIColor(red: 0.6, green: 0.4, blue: 0.8, alpha: 0.85)
-        actuatorButton.layer.cornerRadius = 22
-        actuatorButton.translatesAutoresizingMaskIntoConstraints = false
-        actuatorButton.layer.shadowColor = UIColor.black.cgColor
-        actuatorButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-        actuatorButton.layer.shadowOpacity = 0.6
-        actuatorButton.layer.shadowRadius = 4
-        return actuatorButton
-    }()
-    
-    let cascadesAggregationStack: UIStackView = {
-        let stackAggregation = UIStackView()
-        stackAggregation.axis = .horizontal
-        stackAggregation.distribution = .fillEqually
-        stackAggregation.spacing = 12
-        stackAggregation.translatesAutoresizingMaskIntoConstraints = false
-        return stackAggregation
-    }()
-    
-    let regressionNavigationTrigger: UIButton = {
-        let triggerButton = UIButton(type: .system)
-        triggerButton.setTitle("← Back", for: .normal)
-        triggerButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        triggerButton.setTitleColor(.white, for: .normal)
-        triggerButton.backgroundColor = UIColor(red: 0.3, green: 0.4, blue: 0.6, alpha: 0.8)
-        triggerButton.layer.cornerRadius = 20
-        triggerButton.translatesAutoresizingMaskIntoConstraints = false
-        triggerButton.layer.shadowColor = UIColor.black.cgColor
-        triggerButton.layer.shadowOffset = CGSize(width: 0, height: 2)
-        triggerButton.layer.shadowOpacity = 0.6
-        triggerButton.layer.shadowRadius = 3
-        return triggerButton
-    }()
-    
-    // MARK: - Lifecycle
+    // MARK: - 生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
-        orchestrateVisualizationHierarchy()
-        presentCadenceSelectionInterface()
+        showsBackButton = true
+        gameManager.delegate = self
+        setupUI()
+        setupConstraints()
+        showVelocitySelection()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+    // MARK: - UI设置
+    private func setupUI() {
+        [scoreLabel, columnsStackView, toggleMagnitudeButton].forEach { view.addSubview($0) }
+        setupColumnViews()
+        
+        // 确保返回按钮在最上层
+        if showsBackButton {
+            view.bringSubviewToFront(backButton)
+        }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+    private func setupConstraints() {
+        let safeArea = view.safeAreaLayoutGuide
+        let spacing = AdaptiveLayoutHelper.calculateSpacing(base: 20)
+        
+        NSLayoutConstraint.activate([
+            scoreLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 60),
+            scoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            columnsStackView.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: spacing),
+            columnsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacing),
+            columnsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacing),
+            columnsStackView.bottomAnchor.constraint(equalTo: toggleMagnitudeButton.topAnchor, constant: -spacing),
+            
+            toggleMagnitudeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            toggleMagnitudeButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -spacing)
+        ])
+        
+        LayoutManager.setSize(toggleMagnitudeButton, width: AdaptiveLayoutHelper.calculateButtonSize(base: 160), height: 44)
+    }
+    
+    private func setupColumnViews() {
+        for i in 0..<3 {
+            let container = createColumnContainer(index: i)
+            let tableView = createColumnTableView(index: i)
+            
+            container.addSubview(tableView)
+            columnsStackView.addArrangedSubview(container)
+            
+            LayoutManager.applyEdgeInsets(tableView, in: container, insets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
+            
+            columnViews.append(tableView)
+            columnBackgroundViews.append(container)
+        }
+    }
+    
+    private func createColumnContainer(index: Int) -> UIView {
+        let config = ContainerConfig(
+            backgroundColor: columnHues[index],
+            cornerRadius: 15,
+            borderWidth: 2,
+            borderColor: UIColor.white.withAlphaComponent(0.5)
+        )
+        return UIFactory.createContainerView(config: config)
+    }
+    
+    private func createColumnTableView(index: Int) -> UITableView {
+        let tableView = UITableView()
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.tag = index
+        tableView.register(VestigeTileCell.self, forCellReuseIdentifier: "VestigeTileCell")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.showsVerticalScrollIndicator = false
+        tableView.isScrollEnabled = false
+        return tableView
+    }
+    
+    // MARK: - 重写方法
+    override func handleBackAction() {
+        gameManager.endGame(saveRecord: false)
+        super.handleBackAction()
     }
 }
+

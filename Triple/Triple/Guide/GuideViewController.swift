@@ -2,204 +2,144 @@
 //  GuideViewController.swift
 //  Triple
 //
-//  Created by Zhao on 2025/11/4.
+//  重构后的游戏指南控制器
 //
 
 import UIKit
 
-class PedagogicalInstructionCompendiumController: UIViewController {
+class GuideViewController: BaseViewController {
     
-    let etherealBackdropImagery: UIImageView = {
-        let imageryView = UIImageView()
-        imageryView.image = UIImage(named: "tripleImage")
-        imageryView.contentMode = .scaleAspectFill
-        imageryView.translatesAutoresizingMaskIntoConstraints = false
-        return imageryView
+    // MARK: - UI组件
+    private lazy var titleLabel: UILabel = {
+        let config = LabelConfig(
+            text: "How to Play",
+            fontSize: 36,
+            weight: .bold,
+            hasShadow: true,
+            shadowConfig: ShadowConfig(offset: CGSize(width: 0, height: 3), opacity: 0.9, radius: 5)
+        )
+        return UIFactory.createLabel(config: config)
     }()
     
-    let obscuringTintedVeil: UIView = {
-        let veilView = UIView()
-        veilView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        veilView.translatesAutoresizingMaskIntoConstraints = false
-        return veilView
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = true
+        scrollView.indicatorStyle = .white
+        return scrollView
     }()
     
-    let compendiumHeadlineInscription: UILabel = {
-        let inscriptionLabel = UILabel()
-        inscriptionLabel.text = "How to Play"
-        inscriptionLabel.font = UIFont.boldSystemFont(ofSize: 36)
-        inscriptionLabel.textColor = .white
-        inscriptionLabel.textAlignment = .center
-        inscriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        inscriptionLabel.layer.shadowColor = UIColor.black.cgColor
-        inscriptionLabel.layer.shadowOffset = CGSize(width: 0, height: 3)
-        inscriptionLabel.layer.shadowOpacity = 0.9
-        inscriptionLabel.layer.shadowRadius = 5
-        return inscriptionLabel
+    private lazy var contentStackView: UIStackView = {
+        let stack = UIFactory.createStackView(axis: .vertical, spacing: 20)
+        stack.layoutMargins = UIEdgeInsets(top: 20, left: 30, bottom: 20, right: 30)
+        stack.isLayoutMarginsRelativeArrangement = true
+        return stack
     }()
     
-    let verticalScrollableViewport: UIScrollView = {
-        let scrollableViewport = UIScrollView()
-        scrollableViewport.translatesAutoresizingMaskIntoConstraints = false
-        scrollableViewport.showsVerticalScrollIndicator = true
-        scrollableViewport.indicatorStyle = .white
-        return scrollableViewport
-    }()
-    
-    let contentAggregationStack: UIStackView = {
-        let stackAggregation = UIStackView()
-        stackAggregation.axis = .vertical
-        stackAggregation.spacing = 20
-        stackAggregation.translatesAutoresizingMaskIntoConstraints = false
-        stackAggregation.layoutMargins = UIEdgeInsets(top: 20, left: 30, bottom: 20, right: 30)
-        stackAggregation.isLayoutMarginsRelativeArrangement = true
-        return stackAggregation
-    }()
-    
-    let regressionNavigationTrigger: UIButton = {
-        let triggerButton = UIButton(type: .system)
-        triggerButton.setTitle("← Back", for: .normal)
-        triggerButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        triggerButton.setTitleColor(.white, for: .normal)
-        triggerButton.backgroundColor = UIColor(red: 0.3, green: 0.4, blue: 0.6, alpha: 0.8)
-        triggerButton.layer.cornerRadius = 20
-        triggerButton.translatesAutoresizingMaskIntoConstraints = false
-        triggerButton.layer.shadowColor = UIColor.black.cgColor
-        triggerButton.layer.shadowOffset = CGSize(width: 0, height: 2)
-        triggerButton.layer.shadowOpacity = 0.6
-        triggerButton.layer.shadowRadius = 3
-        return triggerButton
-    }()
-    
+    // MARK: - 生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
-        orchestrateVisualizationHierarchy()
+        showsBackButton = true
+        setupUI()
+        setupConstraints()
+        populateGuideContent()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-    
-    func orchestrateVisualizationHierarchy() {
-        view.addSubview(etherealBackdropImagery)
-        view.addSubview(obscuringTintedVeil)
-        view.addSubview(compendiumHeadlineInscription)
-        view.addSubview(verticalScrollableViewport)
-        view.addSubview(regressionNavigationTrigger)
+    // MARK: - UI设置
+    private func setupUI() {
+        view.addSubview(titleLabel)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentStackView)
         
-        verticalScrollableViewport.addSubview(contentAggregationStack)
-        
-        regressionNavigationTrigger.addTarget(self, action: #selector(executeRegressionNavigation), for: .touchUpInside)
-        
-        establishGeometricConstraints()
-        populateInstructionalContent()
-    }
-    
-    func establishGeometricConstraints() {
-        let protectedRegion = view.safeAreaLayoutGuide
-        
-        NSLayoutConstraint.activate([
-            etherealBackdropImagery.topAnchor.constraint(equalTo: view.topAnchor),
-            etherealBackdropImagery.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            etherealBackdropImagery.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            etherealBackdropImagery.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            obscuringTintedVeil.topAnchor.constraint(equalTo: view.topAnchor),
-            obscuringTintedVeil.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            obscuringTintedVeil.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            obscuringTintedVeil.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            regressionNavigationTrigger.topAnchor.constraint(equalTo: protectedRegion.topAnchor, constant: 10),
-            regressionNavigationTrigger.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            regressionNavigationTrigger.widthAnchor.constraint(equalToConstant: 100),
-            regressionNavigationTrigger.heightAnchor.constraint(equalToConstant: 40),
-            
-            compendiumHeadlineInscription.topAnchor.constraint(equalTo: regressionNavigationTrigger.bottomAnchor, constant: 20),
-            compendiumHeadlineInscription.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            verticalScrollableViewport.topAnchor.constraint(equalTo: compendiumHeadlineInscription.bottomAnchor, constant: 20),
-            verticalScrollableViewport.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            verticalScrollableViewport.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            verticalScrollableViewport.bottomAnchor.constraint(equalTo: protectedRegion.bottomAnchor, constant: -20),
-            
-            contentAggregationStack.topAnchor.constraint(equalTo: verticalScrollableViewport.topAnchor),
-            contentAggregationStack.leadingAnchor.constraint(equalTo: verticalScrollableViewport.leadingAnchor),
-            contentAggregationStack.trailingAnchor.constraint(equalTo: verticalScrollableViewport.trailingAnchor),
-            contentAggregationStack.bottomAnchor.constraint(equalTo: verticalScrollableViewport.bottomAnchor),
-            contentAggregationStack.widthAnchor.constraint(equalTo: verticalScrollableViewport.widthAnchor)
-        ])
-    }
-    
-    func populateInstructionalContent() {
-        let instructionalSegments: [(String, String)] = [
-            ("🎯 Objective", "Eliminate mahjong tiles by selecting the highest value tile in each column before they reach the bottom of the container."),
-            
-            ("🎮 Game Mechanics", "• Three columns of mahjong tiles descend from top to bottom\n• Each column starts with 2 tiles\n• New tiles appear periodically at the top\n• When tiles reach the container edge, the game ends"),
-            
-            ("🎴 How to Eliminate Tiles", "• Tap any tile in a column to eliminate it\n• You can ONLY eliminate the tile with the HIGHEST value in that column\n• Successfully eliminated tiles earn you points\n• If a column becomes empty, 2 new tiles will appear"),
-            
-            ("🔧 Special Tools", "• Delete One (deleteOne icon): Removes all tiles from a selected column\n• Delete All (deleteAll icon): Clears all tiles from all three columns\n• Use these tools strategically to prevent game over"),
-            
-            ("⚡️ Game Modes", "• Fast Mode: Tiles descend quickly for intense gameplay\n• Slow Mode: Tiles descend slowly for relaxed gameplay\n• Choose your preferred speed at the start of each game"),
-            
-            ("🏆 Scoring System", "• Eliminating a tile: +10 points × tile value\n• Using Delete One tool: +5 points per tile\n• Using Delete All tool: +8 points per tile\n• Higher scores unlock better rankings in Records"),
-        ]
-        
-        for (headlineText, contentText) in instructionalSegments {
-            let segmentEncapsulation = fabricateInstructionalSegment(headline: headlineText, content: contentText)
-            contentAggregationStack.addArrangedSubview(segmentEncapsulation)
+        // 确保返回按钮在最上层
+        if showsBackButton {
+            view.bringSubviewToFront(backButton)
         }
     }
     
-    func fabricateInstructionalSegment(headline: String, content: String) -> UIView {
-        let encapsulationContainer = UIView()
-        encapsulationContainer.backgroundColor = UIColor.white.withAlphaComponent(0.15)
-        encapsulationContainer.layer.cornerRadius = 15
-        encapsulationContainer.layer.borderWidth = 2
-        encapsulationContainer.layer.borderColor = UIColor.white.withAlphaComponent(0.3).cgColor
-        encapsulationContainer.translatesAutoresizingMaskIntoConstraints = false
-        
-        let headlineInscription = UILabel()
-        headlineInscription.text = headline
-        headlineInscription.font = UIFont.boldSystemFont(ofSize: 22)
-        headlineInscription.textColor = UIColor(red: 1.0, green: 0.84, blue: 0.0, alpha: 1.0)
-        headlineInscription.numberOfLines = 0
-        headlineInscription.translatesAutoresizingMaskIntoConstraints = false
-        headlineInscription.layer.shadowColor = UIColor.black.cgColor
-        headlineInscription.layer.shadowOffset = CGSize(width: 0, height: 1)
-        headlineInscription.layer.shadowOpacity = 0.8
-        headlineInscription.layer.shadowRadius = 2
-        
-        let contentInscription = UILabel()
-        contentInscription.text = content
-        contentInscription.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        contentInscription.textColor = .white
-        contentInscription.numberOfLines = 0
-        contentInscription.translatesAutoresizingMaskIntoConstraints = false
-        contentInscription.layer.shadowColor = UIColor.black.cgColor
-        contentInscription.layer.shadowOffset = CGSize(width: 0, height: 1)
-        contentInscription.layer.shadowOpacity = 0.6
-        contentInscription.layer.shadowRadius = 2
-        
-        encapsulationContainer.addSubview(headlineInscription)
-        encapsulationContainer.addSubview(contentInscription)
+    private func setupConstraints() {
+        let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            headlineInscription.topAnchor.constraint(equalTo: encapsulationContainer.topAnchor, constant: 15),
-            headlineInscription.leadingAnchor.constraint(equalTo: encapsulationContainer.leadingAnchor, constant: 15),
-            headlineInscription.trailingAnchor.constraint(equalTo: encapsulationContainer.trailingAnchor, constant: -15),
+            titleLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 60),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            contentInscription.topAnchor.constraint(equalTo: headlineInscription.bottomAnchor, constant: 10),
-            contentInscription.leadingAnchor.constraint(equalTo: encapsulationContainer.leadingAnchor, constant: 15),
-            contentInscription.trailingAnchor.constraint(equalTo: encapsulationContainer.trailingAnchor, constant: -15),
-            contentInscription.bottomAnchor.constraint(equalTo: encapsulationContainer.bottomAnchor, constant: -15)
+            scrollView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -20),
+            
+            contentStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
-        
-        return encapsulationContainer
     }
     
-    @objc func executeRegressionNavigation() {
-        navigationController?.popViewController(animated: true)
+    // MARK: - 内容填充
+    private func populateGuideContent() {
+        let guideSections: [(String, String)] = [
+            ("Objective", "Eliminate mahjong tiles by selecting the highest value tile in each column before they reach the bottom of the container."),
+            ("Game Mechanics", "• Three columns of mahjong tiles descend from top to bottom\n• Each column starts with 2 tiles\n• New tiles appear periodically at the top\n• When tiles reach the container edge, the game ends"),
+            ("How to Eliminate Tiles", "• Tap any tile in a column to eliminate it\n• You can ONLY eliminate the tile with the HIGHEST value in that column\n• Successfully eliminated tiles earn you points\n• If a column becomes empty, 2 new tiles will appear"),
+            ("Special Tools", "• Delete One (deleteOne icon): Removes all tiles from a selected column\n• Delete All (deleteAll icon): Clears all tiles from all three columns\n• Use these tools strategically to prevent game over"),
+            ("Game Modes", "• Fast Mode: Tiles descend quickly for intense gameplay\n• Slow Mode: Tiles descend slowly for relaxed gameplay\n• Choose your preferred speed at the start of each game"),
+            ("Scoring System", "• Eliminating a tile: +10 points × tile value\n• Using Delete One tool: +5 points per tile\n• Using Delete All tool: +8 points per tile\n• Higher scores unlock better rankings in Records")
+        ]
+        
+        guideSections.forEach { title, content in
+            contentStackView.addArrangedSubview(createGuideSection(title: title, content: content))
+        }
+    }
+    
+    private func createGuideSection(title: String, content: String) -> UIView {
+        let config = ContainerConfig(
+            backgroundColor: UIColor.white.withAlphaComponent(0.15),
+            cornerRadius: 15,
+            borderWidth: 2,
+            borderColor: UIColor.white.withAlphaComponent(0.3)
+        )
+        let container = UIFactory.createContainerView(config: config)
+        
+        let titleConfig = LabelConfig(
+            text: title,
+            fontSize: 22,
+            weight: .bold,
+            color: UIColor(red: 1.0, green: 0.84, blue: 0.0, alpha: 1.0),
+            numberOfLines: 0,
+            hasShadow: true,
+            shadowConfig: ShadowConfig(offset: CGSize(width: 0, height: 1), opacity: 0.8, radius: 2)
+        )
+        let titleLabel = UIFactory.createLabel(config: titleConfig)
+        
+        let contentConfig = LabelConfig(
+            text: content,
+            fontSize: 16,
+            weight: .regular,
+            color: .white,
+            alignment: .left,
+            numberOfLines: 0,
+            hasShadow: true,
+            shadowConfig: ShadowConfig(offset: CGSize(width: 0, height: 1), opacity: 0.6, radius: 2)
+        )
+        let contentLabel = UIFactory.createLabel(config: contentConfig)
+        
+        container.addSubview(titleLabel)
+        container.addSubview(contentLabel)
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 15),
+            titleLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 15),
+            titleLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -15),
+            
+            contentLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            contentLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 15),
+            contentLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -15),
+            contentLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -15)
+        ])
+        
+        return container
     }
 }
+
